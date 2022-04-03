@@ -1,0 +1,39 @@
+<div class= "topright" style="color: #ffffff;"></div>
+
+<div class= "Register_Form">
+    <h1 style="color:black;"><%= @is_reset ? 'Reset Password' : 'Claim Account' %></h1>
+    <% if @is_reset %>
+      <span>Warning!! Reset password will clean all of your schedules.</span>
+    <% end %>
+    <% if !@user.nil? and @user.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with(model: @user, method: :patch, url: users_path(@user)) do |f| %>      
+      <%= f.label(:uin, 'UIN', :class => 'form_label' )%>
+      <%= f.number_field :uin, :size => 10, :class => "Input_Medium, 'form_input'", :required => true%>
+      <%= f.label(:email, 'Email', :class => 'form_label') %>
+      <%= f.email_field :email, :placeholder => "netid@tamu.edu", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :class => "Input_Medium, 'form_input'", :required => true%>
+      <%= f.label(:password_field, 'Password', :class => 'form_label') %>
+      <%= f.password_field :password, :size => 30, :class => "Input_Medium, form_input", :required => true %>
+      <%= f.label(:password_confirmation, 'Retype Password', :class => 'form_label') %>
+      <%= f.password_field :password_confirmation, :size => 30, :class => "Input_Medium, form_input", :required => true%>
+
+      <div class="actions"> 
+        <%= f.submit  @is_reset ? "Reset Password" : "Sign up", class: "btn-submit" %> 
+      </div> 
+    <% end %>
+  <% if @is_reset %>
+    <p class="alignleft"> <%=link_to "Existing User?", '/' %></p>
+    <p class="alignright"> <%=link_to "New User?", '/signup' %></p>
+  <% else %>
+    <p class="alignleft"> <%=link_to "Existing User?", '/login' %></p>
+    <p class="alignright"> <%=link_to "Forgot Password?", '/users/reset' %></p>
+  <% end %> 
+</div>

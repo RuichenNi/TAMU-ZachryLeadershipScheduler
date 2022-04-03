@@ -1,0 +1,16 @@
+%div#addCohortDiv
+    = javascript_include_tag 'application'
+    // %p{:id => "notice"}
+    //     = notice
+    %br
+    %h1{:style => "color:white;" "text-align:center"} Import From Excel
+    %p{:style => "color:yellow;" "text-align:center"}  Please make sure the excel sheet has the columns in the following order: First Name, Last Name, UIN, TAMU Email
+    = link_to "Download an Example", download_excel_example_path, :class => 'button_link', :target => "_blank"
+    = form_tag create_cohort_path, multipart: true do |f|
+        = label_tag 'Cohort Name:'
+        = text_field_tag :name
+        = file_field_tag :file
+        %br 
+        %br
+        = submit_tag "Import", :class=> "button_link"
+        = link_to "Cancel", manage_cohorts_path, :class => 'button_link'

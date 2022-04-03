@@ -1,0 +1,83 @@
+%div#addScheduleDiv
+    %h1#addScheduleHeader{:style => "text-align:center"} Update Schedule for #{@term.name}
+    = form_with :model=>@schedule, :url=>edit_schedule_done_path do |f|
+        = f.hidden_field :id, {:value => @schedule.id}
+        = f.label:name, "Schedule Name:", :id => 'whiteLabel'
+        = f.text_field :name, {:required => true, :value => @schedule.name, :oninvalid=> "this.setCustomValidity('Schedule must include a name.')"}
+        = render partial: 'schedule_table'
+        %br
+        = f.submit "Save Schedule", :class => 'button_link'
+        = link_to "Cancel", view_terms_path, :class => 'button_link'
+    %div{:class => 'sk-chase sk-center'} 
+        %div{:class => 'sk-chase-dot'}
+        %div{:class => 'sk-chase-dot'}
+        %div{:class => 'sk-chase-dot'}
+        %div{:class => 'sk-chase-dot'}
+        %div{:class => 'sk-chase-dot'}
+
+:javascript
+    function dept_select(dept_id, id, schedule_id) {
+        $.ajax({
+            url: "#{update_courses_path}",
+            data: {
+                dept_id : dept_id,
+                id : id,
+                schedule_id: schedule_id,
+            },
+            dataType: "script"
+        });
+    };
+
+    $(document).ready(function() {
+        $('[id^="dept_select_"]').change(function() {
+            var dept_value = $(this).val()
+            var select_id = $(this).attr("id")
+            var lastChar = select_id[select_id.length -1];
+            dept_select(dept_value, lastChar);
+            }
+        );
+
+        $('[id^="course_num_select_"').change(function() {
+            var select_id = $(this).attr("id")
+            var lastChar = select_id[select_id.length -1];
+            var dept_value = $('#dept_select_' + lastChar).val()
+            var course_value = $(this).val()
+            $.ajax({
+                url: "#{update_sections_path}",
+                data: {
+                    dept_id : dept_value,
+                    course_num_id : course_value,
+                    id : lastChar
+                },
+                dataType: "script"
+            });
+        });
+        let startTime = 0;
+        $(window).load((event) => {
+            // While loading courss and sections, hide the table
+            let cur_subject = JSON.parse('#{@cur_subject}');
+            if (cur_subject.length === 0) {
+                $('.sk-chase').hide();
+                return;
+            }
+
+            startTime = new Date();
+            $('#studentScheduleTable').hide();
+            $('.button_link').hide();
+            for (let i = 0; i < cur_subject.length; i++) {
+                let id = (i + 1).toString()
+                dept_select(cur_subject[i], id, #{@schedule.id});
+            }
+
+            $(document).ajaxStop(async function () {
+                // When all courses and sections loaded, show the table
+                let timeDiff = new Date() - startTime;
+                await new Promise(r => setTimeout(() => r(), 1500 - (timeDiff)));
+                $('#studentScheduleTable').show();
+                $('.sk-chase').hide();
+                $('.button_link').show();
+                $(this).unbind("ajaxStop");
+            });
+        });
+    });
+

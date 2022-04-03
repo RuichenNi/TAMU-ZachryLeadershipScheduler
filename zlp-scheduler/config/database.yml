@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: zlp_scheduler_dev
+
+test:
+  <<: *default
+  database: zlp_scheduler_test
+
+production:
+  <<: *default
+  database: zlp_scheduler_prod
+  username: zlp_admin
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>

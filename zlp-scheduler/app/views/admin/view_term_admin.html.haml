@@ -1,0 +1,28 @@
+- if current_user && current_user.admin?
+    %div
+        %div{:class => "menubar_div"}
+            %ul#adminMenuBar
+                %li#adminMenuBarOption
+                    /= link_to 'Open', open_semester_path, :class => 'button_link'
+                %li#adminMenuBarOption
+                    = link_to "New Term", new_term_path, :class => 'button_link'
+                %li#adminMenuBarOption
+                    = link_to "Manage Cohorts", manage_cohorts_path, :class => 'button_link'
+                %li#adminMenuBarOption
+                    = link_to "Manage Administrators", manage_administrators_path, :class => 'button_link'
+                %li#adminMenuBarOption
+                    = link_to "Student Actions", student_actions_path, :class => 'button_link'
+        %h1#welcomeUser{:style => "text-align:center"} Howdy, #{@current_user.firstname}!
+        %table#termTable
+            %tr
+                %th#specialTableHeader #{@term.name}
+                //Bug here if no term is active
+            - @cohorts.each do |c| 
+                %tr
+                    %td#specialTableData 
+                        %form
+                            = link_to c.name, view_cohort_semester_path(c), method: :get, :class => 'button_link'
+- else
+    %li
+        = link_to "Login", 'login', :class => 'btn-submit'
+        = link_to "Signup", 'signup', :class => 'btn-submit'

@@ -1,0 +1,25 @@
+%div#manageAdministratorDiv
+    = javascript_include_tag 'application'
+    %h1{:style => "text-align:center"} Manage Administrators
+    %br
+    %table#adminTable
+        %tr
+            %th#specialTableHeader First Name
+            %th#specialTableHeader Last Name
+            %th#specialTableHeader TAMU Email
+            %th#specialTableHeader UIN
+            %th#specialTableHeader Option
+            %th#specialTableHeader Option
+        - @admins.each do |admin|
+            %tr
+                %td#specialTableData #{admin.firstname}
+                %td#specialTableData #{admin.lastname}
+                %td#specialTableData #{admin.email}
+                %td#specialTableData #{admin.uin}
+                %td#specialTableData 
+                    = link_to "Edit", edit_user_path(admin), :id => 'deleteAdminButton'
+                %td#specialTableData
+                    = link_to 'Delete', delete_admin_path(admin), method: :delete, data: {confirm: 'Are you sure?'}, :id => 'deleteAdminButton'
+    %br
+    = link_to "Add Administrator", add_admin_path, :class => 'button_link'
+    = link_to "Back to Home", view_term_admin_path, :class => 'button_link'

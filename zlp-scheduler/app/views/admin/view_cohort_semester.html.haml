@@ -1,0 +1,31 @@
+%div#viewCohortDiv
+    %h1{:style => "text-align:center"} #{@cohort.name}
+    
+    - if @chosen_time
+        %p#chosenTime The meeting time for this term is #{@chosen_time}
+    - if @schedule_change_warning
+        %p#scheduleChangeWarning One or more students updated their schedule after you selected a time. Please run the algorithm again
+    %div#tableWrapper
+        %table#resultTable
+            %tr
+                %th#specialTableHeader Name
+                %th#specialTableHeader Schedules Added
+            - @users.each do |user|
+                %tr
+                    %td#specialTableData #{user.firstname} #{user.lastname}
+                    %td#specialTableData
+                        - if (user.schedules != [])
+                            Yes
+                        - else
+                            No
+                            
+    -if @cohort.time_slots.present? && !@schedule_change_warning
+        = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
+        
+    = link_to "Run Algorithm" , run_algorithm_path(@cohort.id), :class => 'button_link', method: :post, :data => {disable_with: "<i>The algorithm is running...</i>"}
+    = link_to "Back to Home", view_term_admin_path, :class => 'button_link'
+    
+    -if @cohort.modi.nil? || @cohort.modi?
+        = link_to "Disable Student Modification" , change_access_path(@cohort.id), :class => 'button_link'
+    -else
+        = link_to "Enable Student Modification" , change_access_path(@cohort.id), :class => 'button_link'

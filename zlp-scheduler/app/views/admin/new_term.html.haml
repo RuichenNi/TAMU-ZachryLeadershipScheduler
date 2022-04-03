@@ -1,0 +1,19 @@
+%div#newTermDiv
+    %h1{:style => "text-align:center"} Activate a new Term
+    %br 
+    %br
+    = javascript_include_tag 'application'
+    = form_for @term do |f|
+        %label#cohortLabel{:for => "term_name"} Term:
+        /传入变量的名字是name，实际的值是每个学期的id
+        = f.collection_select :name, Term.all, :id, :name, {:selected => @term.id} 
+        /%p#cohortLabel Cohorts in term (hold control to select multiple):
+        /= select_tag "Cohorts", options_for_select(@cohort_names), multiple: true, id: 'cohort_select'
+        %br
+        %br
+        %br
+        %br
+        = f.submit "Activate", :class => 'button_link'
+        = link_to "Cancel", view_term_admin_path, :class => 'button_link'
+        = link_to "Load more terms", load_terms_path, :class => 'button_link'
+        /data: {confirm: 'This will erase previous student records. Are you sure?'},

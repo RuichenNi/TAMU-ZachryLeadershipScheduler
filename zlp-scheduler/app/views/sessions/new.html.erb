@@ -1,0 +1,21 @@
+<div class= "Sign_Form">
+    <h1 style="color:black;">Login</h1>
+      <%= form_for(:session, url: login_path) do |f| %> 
+        <p>Email Address<br><%= f.email_field :email, :placeholder => "Email", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :class=> "Input_Medium"  %> 
+        <p>Password<br><%= f.password_field :password, :placeholder => "Password", :size => 30, :class=> "Input_Medium" %> 
+        <br>
+        <br>
+        <%= f.submit "Log in", class: "btn-submit" %>
+      <% end %>
+
+      <div class= "errors">
+        <% if flash[:login_errors]%>
+            <% flash[:login_errors].each do |error| %>
+                <p> <%= error%> </p>
+            <%end%>
+        <%end%>
+    </div>
+  
+    <p class="alignleft"> <%=link_to "New User?", 'signup' %></p>
+    <p class="alignright"> <%=link_to "Forgot Password?", '/users/reset' %></p>    
+</div> 

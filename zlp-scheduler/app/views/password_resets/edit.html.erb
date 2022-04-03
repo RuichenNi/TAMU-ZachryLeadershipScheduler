@@ -1,0 +1,26 @@
+  <div class="Register_Form">
+    <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+    <% if @user.errors.any? %>
+      <div class="error_messages">
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @user.errors.full_messages %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <h2 style="color:black;">Reset Password</h2>
+    <%= f.label :password %>
+    <br>
+    <%= f.password_field :password, :size => 30, :class=> "Input_Medium" %>
+    <br>
+    <%= f.label :retype_password %>
+    <br>
+    <%= f.password_field :password_confirmation, :size => 30, :class=> "Input_Medium" %>
+    <br>
+    <br>
+    <%= f.submit "Update Password", class: "btn-submit" %>
+  </div>
+
+<% end %>

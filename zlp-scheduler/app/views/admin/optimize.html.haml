@@ -1,0 +1,20 @@
+- if current_user && current_user.admin?
+    %h1 Howdy, #{@current_user.firstname}!
+        button_to "Optimizate Schedules"
+        
+        %table{:class => "student_table"}
+            %tr
+
+        - @scheduler.schedules.each do |admin|
+            %tr
+                %td #{admin.firstname}
+                %td #{admin.lastname}
+                %td #{admin.email}
+                %td #{admin.uin}
+                %td 
+                    = link_to "Edit", edit_user_path(admin), :class => 'button_link'
+        
+- else
+    %li
+        = link_to "Login", 'login', :class => 'btn-submit'
+        = link_to "Signup", 'signup', :class => 'btn-submit'

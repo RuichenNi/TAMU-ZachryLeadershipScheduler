@@ -1,0 +1,32 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#Ensure the fixture loads in the order shown here, by default can get mixed up
+--- !omap
+one:
+  full_subject: Accounting
+  abbreviated_subject: ACCT
+  course_name: SURVEY OF ACCT PRIN
+  course_number: 209
+  section_number: 501
+  meetingtime_start: 2020-01-13 08:00:00
+  meetingtime_end: 2020-05-05 09:15:00
+  meeting_days:
+    - T
+  instructors:
+    - Morgan E. Clarke
+  meeting_location: Wehner - College of Business 113
+  term: nil
+
+two:
+  full_subject: Accounting
+  abbreviated_subject: ACCT
+  course_name: SURVEY OF ACCT PRIN
+  course_number: 209
+  section_number: 502
+  meetingtime_start: 2020-01-13 08:00:00
+  meetingtime_end: 2020-05-05 09:15:00
+  meeting_days:
+    - R
+  instructors:
+    - Morgan E. Clarke
+  meeting_location: Wehner - College of Business 113
+  term: nil

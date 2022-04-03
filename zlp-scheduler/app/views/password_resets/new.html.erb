@@ -1,0 +1,11 @@
+<div class= "Sign_Form">
+    <%= form_tag password_resets_path, :method => :post do %>
+        <h2 style="color:black;">Password Reset</h2>
+        <%= label_tag "Email: "%>
+        <%= email_field_tag :email, params[:email], :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :class=> "Input_Medium"  %>
+        <%= submit_tag "Reset Password", class: "btn-submit" %>
+         <% end %>
+        <p class="alignleft"> <%=link_to "New User?", '/signup' %></p>
+        <p class="alignright"> <%=link_to "Login", '/' %></p>
+
+</div>

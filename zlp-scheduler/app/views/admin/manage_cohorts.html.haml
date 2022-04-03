@@ -1,0 +1,34 @@
+%div#manageCohortDiv
+    = javascript_include_tag 'application'
+    %h1{:style => "text-align:center"} Manage Cohorts
+    - @cohorts.each do |c|
+        // %div#customDropDownDiv
+        %div{:id => "customDropDownDiv_#{c.id}"}
+            - id = c.id
+            %input{:type => "checkbox", :id => id, :onchange => "changeHeight(this.id)"}
+            %label#manageCohortLabel{:for => id} #{c.name}
+            = link_to 'Delete', delete_cohort_path(c), method: :delete, data: {confirm: 'Are you sure?'}, :id => 'rightButtonCohort'
+            = link_to 'Add student',add_student_path(c.id),:id => 'rightButtonCohort'
+            %table#resultTable
+                %tr
+                    %th#specialTableHeader First Name
+                    %th#specialTableHeader Last Name
+                    %th#specialTableHeader TAMU Email
+                    %th#specialTableHeader UIN
+                    %th#specialTableHeader Option
+                    %th#specialTableHeader Option
+                - c.users.each do |user|
+                    %tr
+                        %td#specialTableData #{user.firstname}
+                        %td#specialTableData #{user.lastname}
+                        %td#specialTableData #{user.email}
+                        %td#specialTableData #{user.uin}
+                        %td#specialTableData 
+                            = link_to "Edit", edit_user_path(user), :class => 'button_link'
+                        %td#specialTableData
+                            = link_to 'Delete', delete_user_path(user), method: :delete, data: {confirm: 'Are you sure?'}, :id => 'deleteStudentButton'
+
+%div{:class => 'centered_links'}   
+    //****Change later
+    = link_to "Create New Cohort", add_cohort_path, :class => 'button_link'
+    = link_to "Back to Home", view_term_admin_path, :class => 'button_link'

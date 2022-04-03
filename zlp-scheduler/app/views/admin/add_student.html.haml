@@ -1,0 +1,32 @@
+%div#addAdminDiv  
+    %h1{:style => "text-align:center"} Add a new Student to #{@cohort_name}
+    = form_for @user,url: add_student_path, method: "post" do |f| 
+        %table#userTable
+            %tr
+                %th#specialTableHeader First Name
+                %th#specialTableHeader Last Name
+                %th#specialTableHeader TAMU Email
+                %th#specialTableHeader UIN
+            %tr
+                %td#specialTableData
+                    = f.text_field :firstname
+                %td#specialTableData
+                    = f.text_field :lastname
+                %td#specialTableData
+                    = f.email_field :email, :placeholder => "netid@tamu.edu", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :required => true
+                %td#specialTableData
+                    = f.number_field :uin,:required => true
+
+
+
+        %br
+        = f.submit "Create", :class => 'button_link'
+        = link_to "Cancel", manage_cohorts_path, :class => 'button_link'
+        
+
+
+
+
+  
+        
+

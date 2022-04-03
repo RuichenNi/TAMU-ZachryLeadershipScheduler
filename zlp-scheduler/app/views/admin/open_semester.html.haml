@@ -1,0 +1,13 @@
+%div#openSemesterDiv
+    %h1{:style => "text-align:center"} Open #{@term.name} Student Input
+    %br
+    = form_for @term do |f|
+        = f.label :opendate, "Open:", :id => 'whiteLabel'
+        = f.datetime_select :opendate, :ampm => true, :minute_step => 30
+        %p
+        = f.label :closedate, "Close:", :id => 'whiteLabel'
+        = f.datetime_select :closedate, :ampm => true, :minute_step => 30
+        %p
+        = f.submit 'Save', :class => 'button_link'
+        = link_to "Cancel", view_term_admin_path, :class => 'button_link'
+        

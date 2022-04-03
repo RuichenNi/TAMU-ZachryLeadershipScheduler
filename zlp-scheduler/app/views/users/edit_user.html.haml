@@ -1,0 +1,26 @@
+%div#editUserDiv  
+    = javascript_include_tag 'application'
+    %br
+    %h2 Edit #{@user.firstname} #{@user.lastname}
+    = form_for @user, url: patch_user_path(@user) do |f|
+        %table#userTable
+            %tr
+                %th#specialTableHeader First Name
+                %th#specialTableHeader Last Name
+                %th#specialTableHeader TAMU Email
+                %th#specialTableHeader UIN
+            %tr
+                %td#specialTableData
+                    = f.text_field :firstname, :value => @user.firstname
+                %td#specialTableData
+                    = f.text_field :lastname, :value => @user.lastname
+                %td#specialTableData
+                    = f.email_field :email, :placeholder => "Email", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :value => @user.email
+                %td#specialTableData
+                    = f.text_field :uin, :value => @user.uin
+        %br
+        = f.submit "Update", :class => 'button_link'
+        - if @user.admin?
+            = link_to "Cancel", manage_administrators_path, :class => 'button_link'
+        - else
+            = link_to "Cancel", manage_cohorts_path, :class => 'button_link'

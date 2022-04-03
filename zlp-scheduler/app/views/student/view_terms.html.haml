@@ -1,0 +1,42 @@
+= link_to "Log out", logout_path, method: "delete"
+- if current_user && current_user.student?
+    %div#studentViewTermsMenuBarDiv
+        %ul#studentMenuBar
+            %li#studentMenuBarOption
+                -if @cohort.modi.nil? || @cohort.modi?
+                    = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'
+                -else
+                    = "Add Schedule"
+    %h1#welcomeUser{:style => "text-align:center"} Howdy, #{@current_user.firstname}!
+    
+    - if @chosen_time.present?
+        %p#chosenTime The meeting time for this term is #{@chosen_time}
+    
+    %div#studentViewTermsDiv
+        %h3{:style => "text-align:center", :color => "green"} You may add up to three schedules for this term. Please add them in the order of preference (first schedule added is the highest preferred).
+        %table#studentTermTable
+            %tr
+                %th#specialTableHeader{:colspan => "2", :class => 'tooltip'} 
+                    #{@term.name}
+                    // %span{:class => 'tooltiptext'}You may add up to three schedules for this term. Please add them in the order of preference (first schedule added is the highest preferred).
+            %tr
+                %th#specialTableHeader Schedule
+                %th#specialTableHeader Option
+            - @schedules.each do |s|
+                %tr
+                    %td#specialTableData 
+                        %form
+                            = link_to s.name, view_schedule_path(s), method: :get, :class => 'button_link'
+                    %td#specialTableData 
+                        %form
+                        -if @cohort.modi.nil? || @cohort.modi?
+                            = link_to 'Delete', delete_schedule_path(s), method: :delete, data: {confirm: 'Are you sure?'}, :id => 'deleteStudentButton'
+                        -else
+                            Delete
+    -unless @cohort.modi.nil? || @cohort.modi?
+        %h2{:style => "text-align:center"} 
+            Schedule modification is currently disabled for your cohort. Please contact an admin if you would like to know more.
+- else
+    %li
+        = link_to "Login", 'login', :class => 'btn-submit'
+        = link_to "Signup", 'signup', :class => 'btn-submit'
