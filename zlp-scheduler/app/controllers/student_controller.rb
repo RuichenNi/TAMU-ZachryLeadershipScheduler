@@ -56,7 +56,8 @@ class StudentController < ApplicationController
     @subjects = @subjects.uniq
     @course_options = [];
     @section_options = [];
-    
+    @start_time=[];
+    @end_time=[];
   end
 
   def update_courses

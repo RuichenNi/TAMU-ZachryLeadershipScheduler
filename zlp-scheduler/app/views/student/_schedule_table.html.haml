@@ -6,6 +6,8 @@
         %th#specialTableHeader{:class => 'tooltip'} 
             Mandatory
             %span{:id => 'viewScheduleToolTip'} Check if you MUST take the course THIS semester to be on track for graduation.
+        %th#specialTableHeader StartTime
+        %th#specialTableHeader EndTime
     %tr{:class => "sched_table_row"}
         %td#specialTableData
             = collection_select(nil, :dept_id_1,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[0]}, {:id => 'dept_select_1'})
@@ -15,6 +17,10 @@
             = collection_select(nil, :section_num_id_1, @section_options, :id, :course_number, {:include_blank => true}, {:id => 'section_num_select_1'})
         %td#specialTableData
             = check_box_tag :mand_1, 'yes', @cur_mand.nil? ? nil : @cur_mand[0]
+        %td#specialTableData 
+            = text_field_tag 'StartTime_1', 'XX:XX' , {:size=>6}
+        %td#specialTableData 
+            = text_field_tag 'EndTime_1', 'XX:XX' , {:size=>6}
     %tr{:class => "sched_table_row"}
         %td#specialTableData
             = collection_select(nil, :dept_id_2,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[1]}, {:id => 'dept_select_2'})
@@ -24,6 +30,10 @@
             = collection_select(nil, :section_num_id_2, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_2'})
         %td#specialTableData
             = check_box_tag :mand_2, 'yes', @cur_mand.nil? ? nil : @cur_mand[1]
+        %td#specialTableData 
+            = text_field_tag 'StartTime_2', 'XX:XX' , {:size=>6}
+        %td#specialTableData 
+            = text_field_tag 'EndTime_2', 'XX:XX' , {:size=>6}
     %tr{:class => "sched_table_row"}
         %td#specialTableData
             = collection_select(nil, :dept_id_3,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[2]}, {:id => 'dept_select_3'})
@@ -33,6 +43,10 @@
             = collection_select(nil, :section_num_id_3, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_3'})
         %td#specialTableData
             = check_box_tag :mand_3, 'yes', @cur_mand.nil? ? nil : @cur_mand[2]
+        %td#specialTableData 
+            = text_field_tag 'StartTime_3', 'XX:XX' , {:size=>6}
+        %td#specialTableData 
+            = text_field_tag 'EndTime_3', 'XX:XX' , {:size=>6}            
     %tr{:class => "sched_table_row"}
         %td#specialTableData
             = collection_select(nil, :dept_id_4,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[3]}, {:id => 'dept_select_4'})
@@ -42,6 +56,10 @@
             = collection_select(nil, :section_num_id_4, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_4'})
         %td#specialTableData
             = check_box_tag :mand_4,'yes', @cur_mand.nil? ? nil : @cur_mand[3]
+        %td#specialTableData 
+            = text_field_tag 'StartTime_4', 'XX:XX' , {:size=>6}
+        %td#specialTableData 
+            = text_field_tag 'EndTime_4', 'XX:XX' , {:size=>6}      
     %tr{:class => "sched_table_row"}
         %td#specialTableData
             = collection_select(nil, :dept_id_5,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[4]}, {:id => 'dept_select_5'})
@@ -51,6 +69,10 @@
             = collection_select(nil, :section_num_id_5, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_5'})
         %td#specialTableData
             = check_box_tag :mand_5, 'yes', @cur_mand.nil? ? nil : @cur_mand[4]
+        %td#specialTableData 
+            = text_field_tag 'StartTime_5', 'XX:XX' , {:size=>6}
+        %td#specialTableData 
+            = text_field_tag 'EndTime_5', 'XX:XX' , {:size=>6}  
     %tr{:class => "sched_table_row"}
         %td#specialTableData
             = collection_select(nil, :dept_id_6,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[5]}, {:id => 'dept_select_6'})
@@ -60,6 +82,10 @@
             = collection_select(nil, :section_num_id_6, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_6'})
         %td#specialTableData
             = check_box_tag :mand_6, 'yes', @cur_mand.nil? ? nil : @cur_mand[5]
+        %td#specialTableData 
+            = text_field_tag 'StartTime_6', 'XX:XX' , {:size=>6}
+        %td#specialTableData 
+            = text_field_tag 'EndTime_6', 'XX:XX' , {:size=>6}  
     %tr{:class => "sched_table_row"}
         %td#specialTableData
             = collection_select(nil, :dept_id_7,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[6]}, {:id => 'dept_select_7'})
@@ -69,3 +95,7 @@
             = collection_select(nil, :section_num_id_7, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_7'})
         %td#specialTableData
             = check_box_tag :mand_7, 'yes', @cur_mand.nil? ? nil : @cur_mand[6]
+        %td#specialTableData 
+            = text_field_tag 'StartTime_7', 'XX:XX' , {:size=>6}
+        %td#specialTableData 
+            = text_field_tag 'EndTime_7', 'XX:XX' , {:size=>6}  
