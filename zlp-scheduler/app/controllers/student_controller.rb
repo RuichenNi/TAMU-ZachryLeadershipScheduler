@@ -139,7 +139,7 @@ class StudentController < ApplicationController
         next if params[subj_symb].empty? or params[number_symb].empty? or params[section_symb].empty?
         subj = Subject.find(params[subj_symb]).subject_code
         @course = Course.find_by(abbreviated_subject: subj, course_number: params[number_symb],
-                                 section_number: params[section_symb], term_id: @term.id)
+                                section_number: params[section_symb], term_id: @term.id)
         # prevent duplicate courses in the same schedule
         next unless @schedule.courses.find_by(id: @course.id).nil?
         @schedule.courses.push(@course)

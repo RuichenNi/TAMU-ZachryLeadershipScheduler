@@ -7,6 +7,7 @@
                 %th#specialTableHeader Last Name
                 %th#specialTableHeader TAMU Email
                 %th#specialTableHeader UIN
+                %th#specialTableHeader Urgent
             %tr
                 %td#specialTableData
                     = f.text_field :firstname
@@ -16,6 +17,8 @@
                     = f.email_field :email, :placeholder => "netid@tamu.edu", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :required => true
                 %td#specialTableData
                     = f.number_field :uin,:required => true
+                %td#specialTableData
+                    = f.check_box :urgent
 
 
 
