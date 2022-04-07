@@ -58,6 +58,7 @@ class StudentController < ApplicationController
     @section_options = [];
     @start_time=[];
     @end_time=[];
+    @weekday=[]
   end
 
   def update_courses

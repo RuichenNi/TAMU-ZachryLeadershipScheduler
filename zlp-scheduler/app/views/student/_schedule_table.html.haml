@@ -3,9 +3,11 @@
         // %th#specialTableHeader Dept.
         // %th#specialTableHeader Course Num.
         // %th#specialTableHeader Section
+
         %th#specialTableHeader{:class => 'tooltip'} 
             Mandatory
             %span{:id => 'viewScheduleToolTip'} Check if you MUST take the course THIS semester to be on track for graduation.
+        %th#specialTableHeader Day
         %th#specialTableHeader StartTime
         %th#specialTableHeader EndTime
     %tr{:class => "sched_table_row"}
@@ -17,6 +19,8 @@
         //     = collection_select(nil, :section_num_id_1, @section_options, :id, :course_number, {:include_blank => true}, {:id => 'section_num_select_1'})
         %td#specialTableData
             = check_box_tag :mand_1, 'yes', @cur_mand.nil? ? nil : @cur_mand[0]
+         %td#specialTableData
+            = collection_select(nil, :day_id_1, @section_options, :id, :course_number, {:include_blank => true}, {:id => 'section_num_select_1'})
         %td#specialTableData 
             = text_field_tag 'StartTime_1', 'XX:XX' , {:size=>6}
         %td#specialTableData 
