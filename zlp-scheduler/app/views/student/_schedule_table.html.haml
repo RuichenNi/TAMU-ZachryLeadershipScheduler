@@ -4,12 +4,25 @@
         // %th#specialTableHeader Course Num.
         // %th#specialTableHeader Section
 
+        // %th#specialTableHeader{:class => 'tooltip'} 
+        //     Mandatory
+        //     %span{:id => 'viewScheduleToolTip'} Check if you MUST take the course THIS semester to be on track for graduation.
+        // %th#specialTableHeader Day
+        // %th#specialTableHeader StartTime
+        // %th#specialTableHeader EndTime
+        
         %th#specialTableHeader{:class => 'tooltip'} 
             Mandatory
             %span{:id => 'viewScheduleToolTip'} Check if you MUST take the course THIS semester to be on track for graduation.
-        %th#specialTableHeader Day
-        %th#specialTableHeader StartTime
-        %th#specialTableHeader EndTime
+        %th#specialTableHeader{:class => 'tooltip'} 
+            Day
+            %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday.
+        %th#specialTableHeader{:class => 'tooltip'}  
+            StartTime
+            %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday - start time.
+        %th#specialTableHeader{:class => 'tooltip'}  
+            EndTime
+            %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday - end time.
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_1,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[0]}, {:id => 'dept_select_1'})
