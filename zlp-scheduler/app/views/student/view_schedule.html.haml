@@ -12,6 +12,7 @@
             %th#specialTableHeader Day
             %th#specialTableHeader StartTime
             %th#specialTableHeader EndTime
+            %th#specialTableHeader Reason
         - @courses.each do |course|
             %tr{:class => "sched_table_row"}
                 // %td#specialTableData #{course.abbreviated_subject}
@@ -28,6 +29,8 @@
                     8:00 am
                 %td#specialTableData
                     9:00 am
+                %td#specialTableData
+                    private affair
     %br
     -if @cohort.modi.nil? || @cohort.modi?
         = link_to "Edit Schedule", edit_schedule_path(@schedule.id), :class => 'button_link' 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_07_000143) do
+ActiveRecord::Schema.define(version: 2022_04_08_203845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2022_04_07_000143) do
     t.string "start_time"
     t.string "end_time"
     t.integer "day", default: 1
+    t.string "reason"
     t.index ["course_id"], name: "index_schedule_to_courses_on_course_id"
     t.index ["schedule_id"], name: "index_schedule_to_courses_on_schedule_id"
   end
