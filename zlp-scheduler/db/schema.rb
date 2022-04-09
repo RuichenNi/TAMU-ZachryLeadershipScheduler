@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_08_203845) do
+ActiveRecord::Schema.define(version: 2022_04_09_233811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2022_04_08_203845) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "subject_id"
+    t.string "day"
     t.index ["instructors"], name: "index_courses_on_instructors", using: :gin
     t.index ["meeting_days"], name: "index_courses_on_meeting_days", using: :gin
     t.index ["subject_id"], name: "index_courses_on_subject_id"
@@ -68,8 +69,8 @@ ActiveRecord::Schema.define(version: 2022_04_08_203845) do
     t.boolean "mandatory", default: false
     t.string "start_time"
     t.string "end_time"
-    t.integer "day", default: 1
     t.string "reason"
+    t.string "weekday"
     t.index ["course_id"], name: "index_schedule_to_courses_on_course_id"
     t.index ["schedule_id"], name: "index_schedule_to_courses_on_schedule_id"
   end
