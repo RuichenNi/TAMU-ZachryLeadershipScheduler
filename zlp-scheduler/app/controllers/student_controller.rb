@@ -56,7 +56,9 @@ class StudentController < ApplicationController
     @subjects = @subjects.uniq
     @course_options = [];
     @section_options = [];
-    
+    @start_time=[];
+    @end_time=[];
+    @day_options=["Monday","Tuesday","Wednesday","Thursday","Friday"]
   end
 
   def update_courses
@@ -132,13 +134,16 @@ class StudentController < ApplicationController
         section_symb = "section_num_id_#{n+1}".to_sym
         check_symb = "mand_#{n+1}".to_sym
         
+        params[subj_symb] = "2"
+        params[number_symb] = "425"
+        params[section_symb] = "501"
         if (params[subj_symb] != "" and params[number_symb] == "") or (params[subj_symb] != "" and params[section_symb] == "")
           warning_word = " Courses without course number or section number will not be added in the schedule!"
         end
         next if params[subj_symb].empty? or params[number_symb].empty? or params[section_symb].empty?
         subj = Subject.find(params[subj_symb]).subject_code
         @course = Course.find_by(abbreviated_subject: subj, course_number: params[number_symb],
-                                 section_number: params[section_symb], term_id: @term.id)
+                                section_number: params[section_symb], term_id: @term.id)
         # prevent duplicate courses in the same schedule
         next unless @schedule.courses.find_by(id: @course.id).nil?
         @schedule.courses.push(@course)
