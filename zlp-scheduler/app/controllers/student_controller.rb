@@ -133,6 +133,9 @@ class StudentController < ApplicationController
         number_symb = "course_num_id_#{n+1}".to_sym
         section_symb = "section_num_id_#{n+1}".to_sym
         check_symb = "mand_#{n+1}".to_sym
+        startT_symb = "startTime_#{n+1}".to_sym
+        endT_symb = "endTime_#{n+1}".to_sym
+        rea_symb = "reason_1_#{n+1}".to_sym
         
         params[subj_symb] = "2"
         params[number_symb] = "425"
