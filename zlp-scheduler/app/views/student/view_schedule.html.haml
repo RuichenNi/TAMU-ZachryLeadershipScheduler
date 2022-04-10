@@ -2,22 +2,33 @@
     %h1{:style => "text-align:center"} #{@schedule.name}
     %table#studentScheduleTable
         %tr
-            %th#specialTableHeader Dept.
-            %th#specialTableHeader Course Num.
-            %th#specialTableHeader Section
+            // %th#specialTableHeader Dept.
+            // %th#specialTableHeader Course Num.
+            // %th#specialTableHeader Section
+
             %th#specialTableHeader{:class => 'tooltip'} 
                 Mandatory
                 %span{:id => 'viewScheduleToolTip'} You may add up to three schedules for this term. Please add them in the order of preference (first schedule added is the highest preferred)
-        - @courses.each do |course|
+            %th#specialTableHeader Day
+            %th#specialTableHeader StartTime
+            %th#specialTableHeader EndTime
+            %th#specialTableHeader Reason
+        - @associations.each do |a|
             %tr{:class => "sched_table_row"}
-                %td#specialTableData #{course.abbreviated_subject}
-                %td#specialTableData #{course.course_number}
-                %td#specialTableData #{course.section_number}
+
                 %td#specialTableData
-                    - if (@associations.find_by course_id: course.id).mandatory == true
+                    - if (a.mandatory == true)
                         Yes
                     - else
                         No
+                %td#specialTableData 
+                    #{a.weekday}
+                %td#specialTableData
+                    #{a.start_time }
+                %td#specialTableData
+                    #{a.end_time }
+                %td#specialTableData
+                    #{a.reason }
     %br
     -if @cohort.modi.nil? || @cohort.modi?
         = link_to "Edit Schedule", edit_schedule_path(@schedule.id), :class => 'button_link' 

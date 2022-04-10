@@ -56,7 +56,9 @@ class StudentController < ApplicationController
     @subjects = @subjects.uniq
     @course_options = [];
     @section_options = [];
-    
+    @start_time=[];
+    @end_time=[];
+    @day_options=["Monday","Tuesday","Wednesday","Thursday","Friday"]
   end
 
   def update_courses
@@ -126,25 +128,46 @@ class StudentController < ApplicationController
       @schedule.update_attributes(:name => params[:schedule][:name])
       @user.schedules.push(@schedule)
       warning_word = ""
-      7.times do |n|
+      n = 0
+      while n < 7
         subj_symb = "dept_id_#{n+1}".to_sym
         number_symb = "course_num_id_#{n+1}".to_sym
         section_symb = "section_num_id_#{n+1}".to_sym
         check_symb = "mand_#{n+1}".to_sym
-        
+        startT_symb = "startTime_#{n+1}".to_sym
+        endT_symb = "endTime_#{n+1}".to_sym
+        rea_symb = "reason_#{n+1}".to_sym
+        day_symb = "day_id_#{n+1}".to_sym
+        n = n + 1
+        params[subj_symb] = "2"
+        params[number_symb] = "432"
+        params[section_symb] = "900"
         if (params[subj_symb] != "" and params[number_symb] == "") or (params[subj_symb] != "" and params[section_symb] == "")
           warning_word = " Courses without course number or section number will not be added in the schedule!"
         end
-        next if params[subj_symb].empty? or params[number_symb].empty? or params[section_symb].empty?
-        subj = Subject.find(params[subj_symb]).subject_code
-        @course = Course.find_by(abbreviated_subject: subj, course_number: params[number_symb],
-                                 section_number: params[section_symb], term_id: @term.id)
+        #next if params[subj_symb].empty? or params[number_symb].empty? or params[section_symb].empty?
+        #subj = Subject.find(params[subj_symb]).subject_code
+        #@course = Course.find_by(abbreviated_subject: subj, course_number: params[number_symb],
+        #                        section_number: params[section_symb], term_id: @term.id)
         # prevent duplicate courses in the same schedule
-        next unless @schedule.courses.find_by(id: @course.id).nil?
-        @schedule.courses.push(@course)
-        next if params[check_symb].nil?
-        @schedule_course = ScheduleToCourse.find_by(course_id: @course.id, schedule: @schedule.id)
-        @schedule_course.update_attributes(:mandatory => true)
+        #next unless @schedule.courses.find_by(id: @course.id).nil?
+        if (params[startT_symb] != "" and params[endT_symb] == "") or (params[endT_symb] != "" and params[startT_symb] == "")
+          warning_word = " Courses without course number or section number will not be added in the schedule!"
+        end
+        if(params[startT_symb] !="" and params[endT_symb] !="") 
+        #这边要解决editschedule会重新添加原有scheduletocourse词条的bug，需要判别是否之前存在，三重判断
+        #@schedule.courses.push(@course)
+        #next if params[check_symb].nil?
+        #@schedule_course = ScheduleToCourse.find_by()
+          @schedule_course = ScheduleToCourse.new
+          @schedule_course.schedule_id=@schedule.id
+          @schedule_course.mandatory=params[check_symb]
+          @schedule_course.start_time=params[startT_symb]
+          @schedule_course.end_time= params[endT_symb]
+          @schedule_course.reason=params[rea_symb]
+          @schedule_course.weekday=params[day_symb]
+          @schedule_course.save
+        end
       end
       action = StudentAction.new
       action.user_id = @user.id
@@ -175,16 +198,33 @@ class StudentController < ApplicationController
     @subjects = @term.subjects.uniq
     @course_options = []
     @section_options = []
+    @start_time=[];
+    @end_time=[];
+    @day_options=["Monday","Tuesday","Wednesday","Thursday","Friday"]
     # information of current schedule to load into form
     @schedule = Schedule.find(params[:id])
     courses = @schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
     associations = ScheduleToCourse.where(schedule_id: @schedule.id)
     @cur_subject = []
     @cur_mand = []
-    courses.each do |course|
-      @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
-      subj = Subject.find_by(:subject_code => course.subject.subject_code)
-      @cur_subject.push(subj.nil? ? 0 : subj.id)
+    @cur_start_time = []
+    @cur_end_time = []
+    @cur_weekday = []
+    @cur_reason= []
+    @cur_stcid=[]
+    # courses.each do |course|
+    #   @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
+    #   subj = Subject.find_by(:subject_code => course.subject.subject_code)
+    #   @cur_subject.push(subj.nil? ? 0 : subj.id)
+    # end
+    
+    associations.each do |association|
+      @cur_mand.push(association.mandatory == true)
+      @cur_start_time.push(association.start_time)
+      @cur_end_time.push(association.end_time)
+      @cur_weekday.push(association.weekday)
+      @cur_reason.push(association.reason)
+      @cur_stcid.push(association.id)
     end
   end
   

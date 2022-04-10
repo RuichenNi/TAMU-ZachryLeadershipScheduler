@@ -3,7 +3,7 @@
     = form_with :model=>@schedule, :url=>edit_schedule_done_path do |f|
         = f.hidden_field :id, {:value => @schedule.id}
         = f.label:name, "Schedule Name:", :id => 'whiteLabel'
-        = f.text_field :name, {:required => true, :value => @schedule.name, :oninvalid=> "this.setCustomValidity('Schedule must include a name.')"}
+        = f.text_field :name, {:readonly => true, :required => true, :value => @schedule.name, :oninvalid=> "this.setCustomValidity('Schedule must include a name.')"}
         = render partial: 'schedule_table'
         %br
         = f.submit "Save Schedule", :class => 'button_link'
@@ -54,7 +54,7 @@
         });
         let startTime = 0;
         $(window).load((event) => {
-            // While loading courss and sections, hide the table
+            // While loading courses and sections, hide the table
             let cur_subject = JSON.parse('#{@cur_subject}');
             if (cur_subject.length === 0) {
                 $('.sk-chase').hide();
