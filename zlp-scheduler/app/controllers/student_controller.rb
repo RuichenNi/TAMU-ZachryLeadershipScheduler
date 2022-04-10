@@ -211,6 +211,7 @@ class StudentController < ApplicationController
     @cur_end_time = []
     @cur_weekday = []
     @cur_reason= []
+    @cur_stcid=[]
     # courses.each do |course|
     #   @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
     #   subj = Subject.find_by(:subject_code => course.subject.subject_code)
@@ -223,6 +224,7 @@ class StudentController < ApplicationController
       @cur_end_time.push(association.end_time)
       @cur_weekday.push(association.weekday)
       @cur_reason.push(association.reason)
+      @cur_stcid.push(association.id)
     end
   end
   
