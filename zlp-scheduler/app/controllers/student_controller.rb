@@ -160,11 +160,11 @@ class StudentController < ApplicationController
         #@schedule_course = ScheduleToCourse.find_by()
           @schedule_course = ScheduleToCourse.new
           @schedule_course.schedule_id=@schedule.id
-          @schedule_course.mandatory=true
+          @schedule_course.mandatory=params[check_symb]
           @schedule_course.start_time=params[startT_symb]
           @schedule_course.end_time= params[endT_symb]
           @schedule_course.reason=params[rea_symb]
-          @schedule_course.weekday="Monday"
+          @schedule_course.weekday=params[day_symb]
           @schedule_course.save
         end
       end
@@ -203,6 +203,9 @@ class StudentController < ApplicationController
     associations = ScheduleToCourse.where(schedule_id: @schedule.id)
     @cur_subject = []
     @cur_mand = []
+    @start_time=[];
+    @end_time=[];
+    @day_options=["Monday","Tuesday","Wednesday","Thursday","Friday"]
     courses.each do |course|
       @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
       subj = Subject.find_by(:subject_code => course.subject.subject_code)

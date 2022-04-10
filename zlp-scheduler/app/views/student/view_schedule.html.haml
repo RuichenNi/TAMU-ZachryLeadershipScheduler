@@ -13,24 +13,22 @@
             %th#specialTableHeader StartTime
             %th#specialTableHeader EndTime
             %th#specialTableHeader Reason
-        - @courses.each do |course|
+        - @associations.each do |a|
             %tr{:class => "sched_table_row"}
-                // %td#specialTableData #{course.abbreviated_subject}
-                // %td#specialTableData #{course.course_number}
-                // %td#specialTableData #{course.section_number}
+
                 %td#specialTableData
-                    - if (@associations.find_by course_id: course.id).mandatory == true
+                    - if (a.mandatory == true)
                         Yes
                     - else
                         No
+                %td#specialTableData 
+                    #{a.weekday}
                 %td#specialTableData
-                    Monday
+                    #{a.start_time }
                 %td#specialTableData
-                    8:00 am
+                    #{a.end_time }
                 %td#specialTableData
-                    9:00 am
-                %td#specialTableData
-                    private affair
+                    #{a.reason }
     %br
     -if @cohort.modi.nil? || @cohort.modi?
         = link_to "Edit Schedule", edit_schedule_path(@schedule.id), :class => 'button_link' 
