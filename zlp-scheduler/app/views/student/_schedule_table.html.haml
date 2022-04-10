@@ -36,13 +36,13 @@
         %td#specialTableData
             = check_box_tag :mand_1, 'yes', @cur_mand.nil? ? nil : @cur_mand[0]
         %td#specialTableData
-            = collection_select(nil, :day_id_1, @day_options, :to_s, :to_s, {:include_blank => false}, {:id => 'day_id_select_1'})
+            = collection_select(nil, :day_id_1, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[0]}, {:id => 'day_select_1'})
         %td#specialTableData 
-            = text_field_tag 'startTime_1', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'startTime_1', @cur_start_time.nil? ? nil : @cur_start_time[0] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'endTime_1', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'endTime_1', @cur_end_time.nil? ? nil : @cur_end_time[0] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'reason_1', nil , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+            = text_field_tag 'reason_1', @cur_reason.nil? ? nil : @cur_reason[0] , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_2,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[1]}, {:id => 'dept_select_2'})
@@ -53,13 +53,13 @@
         %td#specialTableData
             = check_box_tag :mand_2, 'yes', @cur_mand.nil? ? nil : @cur_mand[1]
         %td#specialTableData
-            = collection_select(nil, :day_id_2, @day_options, :to_s, :to_s, {:include_blank => false}, {:id => 'day_id_select_2'})
+            = collection_select(nil, :day_id_2, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[1]}, {:id => 'day_select_2'})
         %td#specialTableData 
-            = text_field_tag 'startTime_2', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'startTime_2', @cur_start_time.nil? ? nil : @cur_start_time[1], {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'endTime_2', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'endTime_2', @cur_end_time.nil? ? nil : @cur_end_time[1] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'reason_2', nil , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+            = text_field_tag 'reason_2',  @cur_reason.nil? ? nil : @cur_reason[1] , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_3,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[2]}, {:id => 'dept_select_3'})
@@ -70,13 +70,13 @@
         %td#specialTableData
             = check_box_tag :mand_3, 'yes', @cur_mand.nil? ? nil : @cur_mand[2]
         %td#specialTableData
-            = collection_select(nil, :day_id_3, @day_options, :to_s, :to_s, {:include_blank => false}, {:id => 'day_id_select_3'})
+            = collection_select(nil, :day_id_3, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[2]}, {:id => 'day_select_3'})
         %td#specialTableData 
-            = text_field_tag 'startTime_3', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'startTime_3', @cur_start_time.nil? ? nil : @cur_start_time[2] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'endTime_3', nil , {:size=>6,:placeholder=>"xx:xx"}   
+            = text_field_tag 'endTime_3', @cur_end_time.nil? ? nil : @cur_end_time[2] , {:size=>6,:placeholder=>"xx:xx"}   
         %td#specialTableData 
-            = text_field_tag 'reason_3', nil , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+            = text_field_tag 'reason_3',  @cur_reason.nil? ? nil : @cur_reason[2] , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_4,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[3]}, {:id => 'dept_select_4'})
@@ -87,13 +87,13 @@
         %td#specialTableData
             = check_box_tag :mand_4,'yes', @cur_mand.nil? ? nil : @cur_mand[3]
         %td#specialTableData
-            = collection_select(nil, :day_id_4, @day_options, :to_s, :to_s, {:include_blank => false}, {:id => 'day_id_select_4'})
+            = collection_select(nil, :day_id_4, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[3]}, {:id => 'day_select_4'})
         %td#specialTableData 
-            = text_field_tag 'startTime_4', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'startTime_4', @cur_start_time.nil? ? nil : @cur_start_time[3] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'endTime_4', nil , {:size=>6,:placeholder=>"xx:xx"} 
+            = text_field_tag 'endTime_4', @cur_end_time.nil? ? nil : @cur_end_time[3] , {:size=>6,:placeholder=>"xx:xx"} 
         %td#specialTableData 
-            = text_field_tag 'reason_4', nil , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+            = text_field_tag 'reason_4',  @cur_reason.nil? ? nil : @cur_reason[3] , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_5,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[4]}, {:id => 'dept_select_5'})
@@ -104,13 +104,13 @@
         %td#specialTableData
             = check_box_tag :mand_5, 'yes', @cur_mand.nil? ? nil : @cur_mand[4]
         %td#specialTableData
-            = collection_select(nil, :day_id_5, @day_options, :to_s, :to_s, {:include_blank => false}, {:id => 'day_id_select_5'})
+            = collection_select(nil, :day_id_5, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[4]}, {:id => 'day_select_5'})
         %td#specialTableData 
-            = text_field_tag 'startTime_5', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'startTime_5', @cur_start_time.nil? ? nil : @cur_start_time[4] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'endTime_5', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'endTime_5', @cur_end_time.nil? ? nil : @cur_end_time[4] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'reason_5', nil , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+            = text_field_tag 'reason_5',  @cur_reason.nil? ? nil : @cur_reason[4] , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_6,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[5]}, {:id => 'dept_select_6'})
@@ -121,13 +121,13 @@
         %td#specialTableData
             = check_box_tag :mand_6, 'yes', @cur_mand.nil? ? nil : @cur_mand[5]
         %td#specialTableData
-            = collection_select(nil, :day_id_6, @day_options, :to_s, :to_s, {:include_blank => false}, {:id => 'day_id_select_6'})
+            = collection_select(nil, :day_id_6, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[5]}, {:id => 'day_select_6'})
         %td#specialTableData 
-            = text_field_tag 'startTime_6', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'startTime_6', @cur_start_time.nil? ? nil : @cur_start_time[5] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'endTime_6', nil , {:size=>6,:placeholder=>"xx:xx"} 
+            = text_field_tag 'endTime_6', @cur_end_time.nil? ? nil : @cur_end_time[5] , {:size=>6,:placeholder=>"xx:xx"} 
         %td#specialTableData 
-            = text_field_tag 'reason_6', nil , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+            = text_field_tag 'reason_6',  @cur_reason.nil? ? nil : @cur_reason[5] , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_7,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[6]}, {:id => 'dept_select_7'})
@@ -138,10 +138,10 @@
         %td#specialTableData
             = check_box_tag :mand_7, 'yes', @cur_mand.nil? ? nil : @cur_mand[6]
         %td#specialTableData
-            = collection_select(nil, :day_id_7, @day_options, :to_s, :to_s, {:include_blank => false}, {:id => 'day_id_select_7'})
+            = collection_select(nil, :day_id_7, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[6]}, {:id => 'day_select_7'})
         %td#specialTableData 
-            = text_field_tag 'startTime_7', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'startTime_7', @cur_start_time.nil? ? nil : @cur_start_time[6] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'endTime_7', nil , {:size=>6,:placeholder=>"xx:xx"}
+            = text_field_tag 'endTime_7', @cur_end_time.nil? ? nil : @cur_end_time[6] , {:size=>6,:placeholder=>"xx:xx"}
         %td#specialTableData 
-            = text_field_tag 'reason_7', nil , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+            = text_field_tag 'reason_7',  @cur_reason.nil? ? nil : @cur_reason[6], {:size=>10,:placeholder=>"XXXX-XXX-XXX"}

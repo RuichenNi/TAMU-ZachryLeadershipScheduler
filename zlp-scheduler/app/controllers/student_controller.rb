@@ -154,8 +154,9 @@ class StudentController < ApplicationController
         if (params[startT_symb] != "" and params[endT_symb] == "") or (params[endT_symb] != "" and params[startT_symb] == "")
           warning_word = " Courses without course number or section number will not be added in the schedule!"
         end
-        if(params[startT_symb] !="" and params[endT_symb] !="")
-          #@schedule.courses.push(@course)
+        if(params[startT_symb] !="" and params[endT_symb] !="") 
+        #这边要解决editschedule会重新添加原有scheduletocourse词条的bug，需要判别是否之前存在
+        #@schedule.courses.push(@course)
         #next if params[check_symb].nil?
         #@schedule_course = ScheduleToCourse.find_by()
           @schedule_course = ScheduleToCourse.new
@@ -197,19 +198,31 @@ class StudentController < ApplicationController
     @subjects = @term.subjects.uniq
     @course_options = []
     @section_options = []
+    @start_time=[];
+    @end_time=[];
+    @day_options=["Monday","Tuesday","Wednesday","Thursday","Friday"]
     # information of current schedule to load into form
     @schedule = Schedule.find(params[:id])
     courses = @schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
     associations = ScheduleToCourse.where(schedule_id: @schedule.id)
     @cur_subject = []
     @cur_mand = []
-    @start_time=[];
-    @end_time=[];
-    @day_options=["Monday","Tuesday","Wednesday","Thursday","Friday"]
-    courses.each do |course|
-      @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
-      subj = Subject.find_by(:subject_code => course.subject.subject_code)
-      @cur_subject.push(subj.nil? ? 0 : subj.id)
+    @cur_start_time = []
+    @cur_end_time = []
+    @cur_weekday = []
+    @cur_reason= []
+    # courses.each do |course|
+    #   @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
+    #   subj = Subject.find_by(:subject_code => course.subject.subject_code)
+    #   @cur_subject.push(subj.nil? ? 0 : subj.id)
+    # end
+    
+    associations.each do |association|
+      @cur_mand.push(association.mandatory == true)
+      @cur_start_time.push(association.start_time)
+      @cur_end_time.push(association.end_time)
+      @cur_weekday.push(association.weekday)
+      @cur_reason.push(association.reason)
     end
   end
   
