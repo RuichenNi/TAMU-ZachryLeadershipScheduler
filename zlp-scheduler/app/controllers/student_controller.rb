@@ -128,7 +128,8 @@ class StudentController < ApplicationController
       @schedule.update_attributes(:name => params[:schedule][:name])
       @user.schedules.push(@schedule)
       warning_word = ""
-      n = 0
+
+      n=0
       while n < 7
         subj_symb = "dept_id_#{n+1}".to_sym
         number_symb = "course_num_id_#{n+1}".to_sym
@@ -154,7 +155,8 @@ class StudentController < ApplicationController
         if (params[startT_symb] != "" and params[endT_symb] == "") or (params[endT_symb] != "" and params[startT_symb] == "")
           warning_word = " Courses without course number or section number will not be added in the schedule!"
         end
-        if(params[startT_symb] !="" and params[endT_symb] !="") 
+
+        if (params[startT_symb] !="" and params[endT_symb] !="") 
         #这边要解决editschedule会重新添加原有scheduletocourse词条的bug，需要判别是否之前存在，三重判断
         #@schedule.courses.push(@course)
         #next if params[check_symb].nil?
@@ -198,8 +200,8 @@ class StudentController < ApplicationController
     @subjects = @term.subjects.uniq
     @course_options = []
     @section_options = []
-    @start_time=[];
-    @end_time=[];
+    @start_time=[]
+    @end_time=[]
     @day_options=["Monday","Tuesday","Wednesday","Thursday","Friday"]
     # information of current schedule to load into form
     @schedule = Schedule.find(params[:id])
@@ -211,7 +213,7 @@ class StudentController < ApplicationController
     @cur_end_time = []
     @cur_weekday = []
     @cur_reason= []
-    @cur_stcid=[]
+    
     # courses.each do |course|
     #   @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
     #   subj = Subject.find_by(:subject_code => course.subject.subject_code)
@@ -224,7 +226,6 @@ class StudentController < ApplicationController
       @cur_end_time.push(association.end_time)
       @cur_weekday.push(association.weekday)
       @cur_reason.push(association.reason)
-      @cur_stcid.push(association.id)
     end
   end
   

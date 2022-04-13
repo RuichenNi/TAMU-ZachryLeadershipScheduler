@@ -2,7 +2,7 @@
     %h1#addScheduleHeader{:style => "text-align:center"} Add Schedule for #{@term.name}
     = form_for @schedule do |f|
         = f.label:name, "Schedule Name:", :id => 'whiteLabel'
-        = f.text_field :name, {:required => true, :oninvalid=> "this.setCustomValidity('Schedule must include a name.')"}
+        = f.text_field :name, {:required => true}
         = render partial: 'schedule_table'
         %br
         = f.submit "Save Schedule", :class => 'button_link'
