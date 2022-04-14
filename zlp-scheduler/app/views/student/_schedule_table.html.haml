@@ -19,13 +19,13 @@
             %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday.
         %th#specialTableHeader{:class => 'tooltip'}  
             StartTime
-            %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday - start time(24-Hour Time).
+            %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday - start time(24-Hour_based, Ex. 15:30).
         %th#specialTableHeader{:class => 'tooltip'}  
             EndTime
-            %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday - end time(24-Hour Time).
+            %span{:id => 'viewScheduleToolTip'} Add your busy time slot for each weekday - end time(24-Hour_based, Ex. 15:30).
         %th#specialTableHeader{:class => 'tooltip'}  
             Reason
-            %span{:id => 'viewScheduleToolTip'} Add your reason for busy time slot. You should type in "Dept-Course Num-Section" such as "CSCE-606-600" for your courseair or type in "private affair"   
+            %span{:id => 'viewScheduleToolTip'} Add your reason for busy time slot. You should type in "Dept-Course Num-Section" such as "CSCE-606-600" for courses or type in "personnal"
     %tr{:class => "sched_table_row"}
         // %td#specialTableData
         //     = collection_select(nil, :dept_id_1,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[0]}, {:id => 'dept_select_1'})
