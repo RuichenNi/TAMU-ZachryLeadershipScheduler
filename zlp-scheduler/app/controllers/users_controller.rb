@@ -30,6 +30,7 @@ class UsersController < ApplicationController
     @user.lastname = params[:user][:lastname]
     @user.uin = params[:user][:uin]
     @user.email = params[:user][:email]
+    @user.urgent = params[:user][:urgent]
     if @user.save
       if @user.role == 'student'
         flash[:notice] = "Student updated!"

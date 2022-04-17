@@ -135,6 +135,7 @@ class StudentController < ApplicationController
         number_symb = "course_num_id_#{n+1}".to_sym
         section_symb = "section_num_id_#{n+1}".to_sym
         check_symb = "mand_#{n+1}".to_sym
+
         startT_symb = "startTime_#{n+1}".to_sym
         endT_symb = "endTime_#{n+1}".to_sym
         rea_symb = "reason_#{n+1}".to_sym
@@ -143,6 +144,7 @@ class StudentController < ApplicationController
         params[subj_symb] = "2"
         params[number_symb] = "432"
         params[section_symb] = "900"
+
         if (params[subj_symb] != "" and params[number_symb] == "") or (params[subj_symb] != "" and params[section_symb] == "")
           warning_word = " Courses without course number or section number will not be added in the schedule!"
         end

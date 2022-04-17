@@ -9,6 +9,7 @@
                 %th#specialTableHeader Last Name
                 %th#specialTableHeader TAMU Email
                 %th#specialTableHeader UIN
+                %th#specialTableHeader Urgent
             %tr
                 %td#specialTableData
                     = f.text_field :firstname, :value => @user.firstname
@@ -18,6 +19,8 @@
                     = f.email_field :email, :placeholder => "Email", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :value => @user.email
                 %td#specialTableData
                     = f.text_field :uin, :value => @user.uin
+                %td#specialTableData
+                    = f.check_box :urgent, :value => @user.urgent
         %br
         = f.submit "Update", :class => 'button_link'
         - if @user.admin?

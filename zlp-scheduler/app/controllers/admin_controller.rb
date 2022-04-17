@@ -248,6 +248,7 @@ class AdminController < ApplicationController
           @user.email=params[:user][:email]
           @user.cohort_id = session[:cohort_id]
           @user.uin = params[:user][:uin]
+          @user.urgent = params[:user][:urgent]
           @user.password='Temp'
           @user.activate = false
           @user.save!
