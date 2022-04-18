@@ -126,9 +126,11 @@ class StudentController < ApplicationController
         @schedule.courses.clear
       end
       @schedule.update_attributes(:name => params[:schedule][:name])
+      # fix the bug in edition
+      ScheduleToCourse.where(schedule_id: @schedule.id).destroy_all 
       @user.schedules.push(@schedule)
       warning_word = ""
-
+      
       n=0
       while n < 7
         subj_symb = "dept_id_#{n+1}".to_sym
