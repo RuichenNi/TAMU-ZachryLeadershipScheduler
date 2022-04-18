@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2022_04_09_233811) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "subject_id"
+    t.string "day"
     t.index ["instructors"], name: "index_courses_on_instructors", using: :gin
     t.index ["meeting_days"], name: "index_courses_on_meeting_days", using: :gin
     t.index ["subject_id"], name: "index_courses_on_subject_id"

@@ -2,19 +2,34 @@ class Scheduler_2
     @days = ["M","T","W","TR","F"]
     
     def self.is_conflict?(day,current_time,schedule)
-        schedule.courses.each do |course|
-            if course.meeting_days.present? and course.meeting_days.include? day
-                if course.meetingtime_start.in_time_zone(-5).strftime("%H%M") <= current_time.strftime("%H%M") and current_time.strftime("%H%M") <= course.meetingtime_end.in_time_zone(-5).strftime("%H%M")
-                    return course
-                elsif course.meetingtime_start.in_time_zone(-5).strftime("%H%M") <= current_time.advance(:hours => 2).strftime("%H%M") and current_time.advance(:hours => 2).strftime("%H%M") <= course.meetingtime_end.in_time_zone(-5).strftime("%H%M")
-                    return course
+        scheduletocourse=ScheduleToCourse.find_by(:schedule_id => schedule.id)
+        if scheduletocourse.kind_of?(Array)
+            scheduletocourse.each do |timeslot|
+                if timeslot.start_time!=nil and timeslot.end_time!=nil 
+                    if DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.strftime("%H%M") and current_time.strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
+                        return timeslot.id
+                    elsif DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.advance(:hours => 2).strftime("%H%M") and current_time.advance(:hours => 2).strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
+                        return timeslot.id
+                    else
+                        return false
+                    end
                 else
                     return false
                 end
+            end
+        else
+            timeslot = scheduletocourse
+            if timeslot.start_time!=nil and timeslot.end_time!=nil 
+                    if DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.strftime("%H%M") and current_time.strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
+                        return timeslot
+                    elsif DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.advance(:hours => 2).strftime("%H%M") and current_time.advance(:hours => 2).strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
+                        return timeslot
+                    else
+                        return false
+                    end
             else
                 return false
             end
-            
         end
     end
     
@@ -75,6 +90,11 @@ class Scheduler_2
                     
                     student.schedules.each_with_index do |schedule, index|
                         @conflict = self.is_conflict?(day,current_time,schedule)
+                        print("*****************************\n")
+                        print(student.lastname)
+                        print("\n",index,"\n")
+                        print(@conflict)
+                        print("*****************************\n")
                             if @conflict.is_a? false.class
                                 break
                             elsif @conflict.kind_of?(Array) && @conflict.length == 0
@@ -84,8 +104,8 @@ class Scheduler_2
                                 #start_time = Time.now
                                 @conflict_mod = Conflict.new
                                 @conflict_mod.user = student
-                                @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =>  @conflict.id, :schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
-                                @conflict_mod.course = @conflict
+                                @conflict_mod.cost = ScheduleToCourse.find_by(:schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
+                                @conflict_mod.course_id = @conflict
                                 @conflict_mod.schedule = schedule
                                 conflict_mods.append(@conflict_mod)
                                 #@conflict_mod.save

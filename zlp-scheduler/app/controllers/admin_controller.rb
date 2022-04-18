@@ -192,18 +192,20 @@ class AdminController < ApplicationController
       if conf.user_id.present?
         student = User.find(conf.user_id)
         name = student.firstname + ' ' + student.lastname
+        timeslot_id = 112
+        course = ScheduleToCourse.find_by(id: timeslot_id).reason
+        #course = Course.find(conf.course_id)
+        #ScheduleToCourse.find_by(id: timeslot_id)
+        time = ScheduleToCourse.find_by(id: timeslot_id).weekday + ": " + ScheduleToCourse.find_by(id: timeslot_id).start_time  + " - " + ScheduleToCourse.find_by(id: timeslot_id).end_time
+        #time = course.meetingtime_start.strftime("%H:%M")  + " - " + course.meetingtime_end.strftime("%H:%M") 
+        #subject = Subject.find(course.subject_id).subject_code
+        #final_subject = subject + ' ' + course.course_number.to_s
+        #section_number = course.section_number
         
-        course = Course.find(conf.course_id)
-        time = course.meetingtime_start.strftime("%H:%M")  + " - " + course.meetingtime_end.strftime("%H:%M") 
-        subject = Subject.find(course.subject_id).subject_code
-        final_subject = subject + ' ' + course.course_number.to_s
-        section_number = course.section_number
-        
-        
-        schedule_to_course = ScheduleToCourse.find_by(schedule_id: conf.schedule_id, course_id: course.id)
-        mandatory_value = schedule_to_course.mandatory
-        
-        result = [name, final_subject, section_number, time, mandatory_value]
+        schedule_to_course = ScheduleToCourse.find_by(schedule_id: conf.schedule_id)
+        #mandatory_value = schedule_to_course.mandatory
+        mandatory_value = ScheduleToCourse.find_by(id: timeslot_id).mandatory
+        result = [name, course, time, mandatory_value]
         @final_result.append(result)
       end
     end
