@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :schedules, dependent: :destroy
+  has_many :student_actions, dependent: :destroy
   has_one :cohort
   validates :email, presence: true,
                     uniqueness: true
