@@ -1,11 +1,11 @@
 class Scheduler_2
-    @days = ["M","T","W","TR","F"]
+    @days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
     
     def self.is_conflict?(day,current_time,schedule)
         scheduletocourse=ScheduleToCourse.find_by(:schedule_id => schedule.id)
         if scheduletocourse.kind_of?(Array)
             scheduletocourse.each do |timeslot|
-                if timeslot.start_time!=nil and timeslot.end_time!=nil 
+                if timeslot.start_time!=nil and timeslot.end_time!=nil and timeslot.weekday == day
                     if DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.strftime("%H%M") and current_time.strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
                         return timeslot.id
                     elsif DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.advance(:hours => 2).strftime("%H%M") and current_time.advance(:hours => 2).strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
@@ -19,7 +19,7 @@ class Scheduler_2
             end
         else
             timeslot = scheduletocourse
-            if timeslot.start_time!=nil and timeslot.end_time!=nil 
+            if timeslot.start_time!=nil and timeslot.end_time!=nil and timeslot.weekday == day
                     if DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.strftime("%H%M") and current_time.strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
                         return timeslot
                     elsif DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") <= current_time.advance(:hours => 2).strftime("%H%M") and current_time.advance(:hours => 2).strftime("%H%M") <= DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M")
@@ -96,7 +96,7 @@ class Scheduler_2
                         print(@conflict)
                         print("*****************************\n")
                             if @conflict.is_a? false.class
-                                break
+                                puts 1 #break
                             elsif @conflict.kind_of?(Array) && @conflict.length == 0
                                 next
                             else
@@ -105,6 +105,7 @@ class Scheduler_2
                                 @conflict_mod = Conflict.new
                                 @conflict_mod.user = student
                                 @conflict_mod.cost = ScheduleToCourse.find_by(:schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
+                                @conflict_mod.cost = student.urgent ? @conflict_mod.cost + 1000 : @conflict_mod.cost
                                 @conflict_mod.course_id = @conflict
                                 @conflict_mod.schedule = schedule
                                 conflict_mods.append(@conflict_mod)
