@@ -132,7 +132,7 @@ class StudentController < ApplicationController
       warning_word = ""
       
       n=0
-      while n < 7
+      while n < 30
         subj_symb = "dept_id_#{n+1}".to_sym
         number_symb = "course_num_id_#{n+1}".to_sym
         section_symb = "section_num_id_#{n+1}".to_sym
