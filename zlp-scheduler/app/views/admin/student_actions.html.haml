@@ -4,13 +4,14 @@
     
     %ul
     - @actions.each do |action|
-        %div#studentActionItem
-            = action.action == 1 ? image_tag("trash.png", class: "icon", alt: "trash") : image_tag("add.png", class: "icon", alt: "add")
-            %span#studentActionStudentName #{action.user.firstname + ' ' + action.user.lastname}
-            %span#studentActionAction #{action.action == 0 ? ' created ' : action.action == 1 ?' deleted ' : 'edited '}
-            %span schedule
-            %span#studentActionScheduleName #{' "'+ action.schedule_name + '" '}
-            %span#studentActionDate #{action.readable_date}
+        - if !action.nil?
+            %div#studentActionItem
+                = action.action == 1 ? image_tag("trash.png", class: "icon", alt: "trash") : image_tag("add.png", class: "icon", alt: "add")
+                %span#studentActionStudentName #{action.user.firstname + ' ' + action.user.lastname}
+                %span#studentActionAction #{action.action == 0 ? ' created ' : action.action == 1 ?' deleted ' : 'edited '}
+                %span schedule
+                %span#studentActionScheduleName #{' "'+ action.schedule_name + '" '}
+                %span#studentActionDate #{action.readable_date}
             
     %br
     %br

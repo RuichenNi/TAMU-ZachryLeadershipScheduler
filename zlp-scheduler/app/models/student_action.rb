@@ -2,7 +2,7 @@ require 'date'
 
 class StudentAction < ApplicationRecord
   def user
-    User.find(user_id)
+      User.find(user_id)
   end
   
   def readable_date
