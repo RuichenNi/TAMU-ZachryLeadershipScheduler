@@ -33,6 +33,19 @@
         //     = collection_select(nil, :course_num_id_1, @course_options, :id, :course_number, {:include_blank => true}, {:id => 'course_num_select_1'})
         // %td#specialTableData
         //     = collection_select(nil, :section_num_id_1, @section_options, :id, :course_number, {:include_blank => true}, {:id => 'section_num_select_1'})
+        - (8..10).each do |num|
+            %td#specialTableData
+                = check_box_tag :mand_#{num}, "yes", @cur_mand.nil? ? nil : @cur_mand[num]
+            %td#specialTableData
+                = collection_select(nil, :day_id_#{num}, @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[num]}, {:id => 'day_select_#{num}'})
+            %td#specialTableData 
+                = text_field_tag 'startTime_#{num}', @cur_start_time.nil? ? nil : @cur_start_time[num] , {:size=>6,:placeholder=>"xx:xx"}
+            %td#specialTableData 
+                = text_field_tag 'endTime_#{num}', @cur_end_time.nil? ? nil : @cur_end_time[num] , {:size=>6,:placeholder=>"xx:xx"}
+            %td#specialTableData 
+                = text_field_tag 'reason_#{num}', @cur_reason.nil? ? nil : @cur_reason[num] , {:size=>10,:placeholder=>"XXXX-XXX-XXX"}
+    
+            //= collection_select(nil, :day_id_[#{num}], @day_options, :to_s, :to_s, {:include_blank => false,:selected => @cur_weekday.nil? ? nil : @cur_weekday[num]}, {:id => 'day_select_[#{num}]'})
         %td#specialTableData
             = check_box_tag :mand_1, 'yes', @cur_mand.nil? ? nil : @cur_mand[0]
         %td#specialTableData
