@@ -3,6 +3,7 @@ class AddConflicts < ActiveRecord::Migration[5.0]
     create_table :conflicts do |t|
       t.references :user, null: true
       t.integer :cost
+      t.integer :reasonid, array:true, default:[]
       t.references :course, null: true
       t.references :schedule
       t.references :time_slot

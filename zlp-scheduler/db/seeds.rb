@@ -21,8 +21,32 @@ def create_schedule(student,schedule_name, classes)
         @user.schedules.push(@schedule)   
         @user.save
 end
+def create_scheduletocourse(student,schedule_name, timeslots)
+        @schedule = Schedule.new
+        @schedule.update_attributes(:name => schedule_name)
+        student.schedules.push(@schedule)
+        
+        check_symb = "mandatory".to_sym
 
-
+        startT_symb = "start_time".to_sym
+        endT_symb = "end_time".to_sym
+        rea_symb = "reason".to_sym
+        day_symb = "weekday".to_sym
+        timeslots.each do |timeslot|
+                print(timeslot)
+                @schedule_course = ScheduleToCourse.new
+                @schedule_course.schedule_id=@schedule.id
+                @schedule_course.mandatory=timeslot[check_symb]
+                @schedule_course.start_time=timeslot[startT_symb]
+                @schedule_course.end_time= timeslot[endT_symb]
+                @schedule_course.reason=timeslot[rea_symb]
+                @schedule_course.weekday=timeslot[day_symb]
+                @schedule_course.save
+        end
+        @schedule.save
+        @user.schedules.push(@schedule)   
+        @user.save
+end
 #@terms = Term.ImportTermList!
 #@term = Term.find_by active: 1
 
@@ -103,7 +127,14 @@ end
         @user.cohort_id = @cohort.id
         @user.save
        
-
+kylie_timeslots = [
+        {:mandatory => true, :start_time => "9:50", :end_time => "10:50", :weekday => "Wednesday", :reason => "CSCE-600-600"},
+        {:mandatory => true, :start_time => "11:50", :end_time => "12:50", :weekday => "Wednesday", :reason => "CSCE-600-600"},
+        {:mandatory => true, :start_time => "14:20", :end_time => "15:50", :weekday => "Wednesday", :reason => "CSCE-600-600"},
+        {:mandatory => true, :start_time => "9:50", :end_time => "10:50", :weekday => "Friday", :reason => "CSCE-600-600"},
+        
+]
+create_scheduletocourse(@user,"Test 1", kylie_timeslots)
 # kylie_classes = [
 #         {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id},
 #         {:abbreviated_subject => "ISEN", :course_number => 310, :section_number => 501, :term_id => @term.id},
