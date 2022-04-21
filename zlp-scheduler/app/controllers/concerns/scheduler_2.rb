@@ -30,11 +30,11 @@ class Scheduler_2
         def self.sigmoid_cost_fuc(max_cost, alpha, beta, x)
             return cost = max_cost / (1+Math::exp(-1*(alpha*max_cost*x) + (beta*max_cost)))
         end
-        max_cost = 100
-        prior_alpha = -0.015
-        prior_beta = 0.025
-        later_alpha = 0.015
-        later_beta = 0.06
+        max_cost = 1500
+        prior_alpha = -0.0003
+        prior_beta = 0.0005
+        later_alpha = 0.0003
+        later_beta = 0.0012
         # https://www.desmos.com/calculator
         
         if current_time < start_of_day
@@ -95,11 +95,10 @@ class Scheduler_2
                         @conflict_mod = Conflict.new
                         @conflict_mod.user = student
                         @conflict_mod.cost = 0
-                        cost_weight = 7 **(2-index)
+                        cost_weight = student.urgent ? 5*(7**(2-index)) : 7**(2-index)
                         @conflict.each do |timeslotid|
                             @conflict_mod.cost = ScheduleToCourse.find_by(:id => timeslotid).mandatory ? @conflict_mod.cost + cost_weight*2 : @conflict_mod.cost + cost_weight #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
                         end
-                        @conflict_mod.cost = student.urgent ? @conflict_mod.cost + 1000 : @conflict_mod.cost
                         @conflict_mod.reasonid = @conflict
                         @conflict_mod.schedule = schedule
                         conflict_mods.append(@conflict_mod)
