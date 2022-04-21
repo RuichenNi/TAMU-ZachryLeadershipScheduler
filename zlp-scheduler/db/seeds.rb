@@ -103,6 +103,7 @@ end
 
 #@term.import_specific_courses ["ISEN","CHEN","NUEN","MATH","THAR"]
 
+# ================================================================================================================================
 @user = User.new
         @user.firstname = 'Lauren'
         @user.lastname = 'Haylock'
@@ -111,12 +112,12 @@ end
         @user.role = 'admin'
         @user.password = "Temp"
         @user.save
-        
+# ================================================================================================================================       
 @cohort = Cohort.new
         @cohort.name = "Test Cohort"
         @cohort.term_id = 1
         @cohort.save
-        
+# ================================================================================================================================       
 @user = User.new
         @user.firstname = 'Kylie'
         @user.lastname = 'Brown'
@@ -127,14 +128,27 @@ end
         @user.cohort_id = @cohort.id
         @user.save
        
-kylie_timeslots = [
-        {:mandatory => true, :start_time => "9:50", :end_time => "10:50", :weekday => "Wednesday", :reason => "CSCE-600-600"},
-        {:mandatory => true, :start_time => "11:50", :end_time => "12:50", :weekday => "Wednesday", :reason => "CSCE-600-600"},
-        {:mandatory => true, :start_time => "14:20", :end_time => "15:50", :weekday => "Wednesday", :reason => "CSCE-600-600"},
-        {:mandatory => true, :start_time => "9:50", :end_time => "10:50", :weekday => "Friday", :reason => "CSCE-600-600"},
-        
+kylie_timeslots1 = [
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Tuesday", :reason => "ECEN-602-600"},
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Thursday", :reason => "ECEN-602-600"},
+        {:mandatory => true, :start_time => "14:20", :end_time => "15:35", :weekday => "Tuesday", :reason => "ECEN-601-600"},
+        {:mandatory => true, :start_time => "14:20", :end_time => "15:35", :weekday => "Thursday", :reason => "ECEN-601-600"},
+        {:mandatory => true, :start_time => "16:10", :end_time => "17:25", :weekday => "Monday", :reason => "ECEN-654-602"},
+        {:mandatory => true, :start_time => "16:10", :end_time => "17:25", :weekday => "Wedneday", :reason => "ECEN-654-602"},
+        {:mandatory => true, :start_time => "15:55", :end_time => "18:45", :weekday => "Tuesday", :reason => "ECEN-654-602 LAB"},
 ]
-create_scheduletocourse(@user,"Test 1", kylie_timeslots)
+create_scheduletocourse(@user,"Test 1", kylie_timeslots1)
+
+kylie_timeslots2 = [
+        {:mandatory => true, :start_time => "11:10", :end_time => "12:25", :weekday => "Tuesday", :reason => "CSCE-629-603"},
+        {:mandatory => true, :start_time => "11:10", :end_time => "12:25", :weekday => "Thursday", :reason => "CSCE-629-603"},
+        {:mandatory => true, :start_time => "14:20", :end_time => "15:35", :weekday => "Tuesday", :reason => "ECEN-619-600"},
+        {:mandatory => true, :start_time => "14:20", :end_time => "15:35", :weekday => "Thursday", :reason => "ECEN-619-600"},
+        {:mandatory => true, :start_time => "13:50", :end_time => "14:40", :weekday => "Monday", :reason => "CSCE-606-600"},
+        {:mandatory => true, :start_time => "13:50", :end_time => "14:40", :weekday => "Wedneday", :reason => "CSCE-606-600"},
+        {:mandatory => true, :start_time => "13:50", :end_time => "14:40", :weekday => "Friday", :reason => "CSCE-606-600"},
+]
+create_scheduletocourse(@user,"Test 2", kylie_timeslots2)
 # kylie_classes = [
 #         {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id},
 #         {:abbreviated_subject => "ISEN", :course_number => 310, :section_number => 501, :term_id => @term.id},
@@ -158,7 +172,7 @@ create_scheduletocourse(@user,"Test 1", kylie_timeslots)
 # ]
 # create_schedule(@user,"Test 2", kylie_classes)
         
-
+# ================================================================================================================================
         
 @user = User.new
         @user.firstname = 'Gabi'
@@ -169,7 +183,28 @@ create_scheduletocourse(@user,"Test 1", kylie_timeslots)
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
         @user.save
-        
+
+gabi_timeslots1 = [
+        {:mandatory => true, :start_time => "11:10", :end_time => "12:25", :weekday => "Tuesday", :reason => "CSCE-629-603"},
+        {:mandatory => true, :start_time => "11:10", :end_time => "12:25", :weekday => "Thursday", :reason => "CSCE-629-603"},
+        {:mandatory => true, :start_time => "14:20", :end_time => "15:35", :weekday => "Tuesday", :reason => "ECEN-619-600"},
+        {:mandatory => true, :start_time => "14:20", :end_time => "15:35", :weekday => "Thursday", :reason => "ECEN-619-600"},
+        {:mandatory => true, :start_time => "13:50", :end_time => "14:40", :weekday => "Monday", :reason => "CSCE-606-600"},
+        {:mandatory => true, :start_time => "13:50", :end_time => "14:40", :weekday => "Wedneday", :reason => "CSCE-606-600"},
+        {:mandatory => true, :start_time => "13:50", :end_time => "14:40", :weekday => "Friday", :reason => "CSCE-606-600"},
+]
+create_scheduletocourse(@user,"Test 1", gabi_timeslots1)
+
+gabi_timeslots2 = [
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Tuesday", :reason => "CSCE-611-600"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Thursday", :reason => "CSCE-611-600"},
+        {:mandatory => true, :start_time => "12:45", :end_time => "14:00", :weekday => "Tuesday", :reason => "CSCE-633-600"},
+        {:mandatory => true, :start_time => "12:45", :end_time => "14:00", :weekday => "Thursday", :reason => "CSCE-633-600"},
+        {:mandatory => true, :start_time => "17:30", :end_time => "18:45", :weekday => "Tuesday", :reason => "ECEN-621-600"},
+        {:mandatory => true, :start_time => "17:30", :end_time => "18:45", :weekday => "Thursday", :reason => "ECEN-621-600"},
+
+]
+create_scheduletocourse(@user,"Test 2", gabi_timeslots2)
 # gabi_classes = [
 #         {:abbreviated_subject => "CHEN", :course_number => 482, :section_number => 500, :term_id => @term.id},
 #         {:abbreviated_subject => "CHEN", :course_number => 432, :section_number => 904, :term_id => @term.id},
@@ -189,7 +224,9 @@ create_scheduletocourse(@user,"Test 1", kylie_timeslots)
 #         {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id}
 # ]
 # create_schedule(@user,"Test 2", gabi_classes)
-        
+
+# ================================================================================================================================
+
 @user = User.new
         @user.firstname = 'Kiersten'
         @user.lastname = 'Potter'
@@ -199,6 +236,28 @@ create_scheduletocourse(@user,"Test 1", kylie_timeslots)
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
         @user.save
+        
+tony_timeslots1 = [
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Tuesday", :reason => "CSCE-611-600"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Thursday", :reason => "CSCE-611-600"},
+        {:mandatory => true, :start_time => "12:45", :end_time => "14:00", :weekday => "Tuesday", :reason => "CSCE-633-600"},
+        {:mandatory => true, :start_time => "12:45", :end_time => "14:00", :weekday => "Thursday", :reason => "CSCE-633-600"},
+        {:mandatory => true, :start_time => "17:30", :end_time => "18:45", :weekday => "Tuesday", :reason => "ECEN-621-600"},
+        {:mandatory => true, :start_time => "17:30", :end_time => "18:45", :weekday => "Thursday", :reason => "ECEN-621-600"},
+
+]
+create_scheduletocourse(@user,"Test 1", tony_timeslots1)
+
+tony_timeslots2 = [
+        {:mandatory => true, :start_time => "15:55", :end_time => "17:10", :weekday => "Tuesday", :reason => "CSCE-625-600"},
+        {:mandatory => true, :start_time => "15:55", :end_time => "17:10", :weekday => "Thursday", :reason => "CSCE-625-600"},
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Tuesday", :reason => "CSCE-636-600"},
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Thursday", :reason => "CSCE-636-600"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Monday", :reason => "CSCE-646-601"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Wednesday", :reason => "CSCE-646-601"},
+
+]
+create_scheduletocourse(@user,"Test 2", tony_timeslots2) 
         
 # kiersten_classes = [
 #         {:abbreviated_subject => "CHEN", :course_number => 461, :section_number => 500, :term_id => @term.id},
@@ -218,6 +277,8 @@ create_scheduletocourse(@user,"Test 1", kylie_timeslots)
 #         {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id}
 # ]
 # create_schedule(@user,"Test 2", kiersten_classes)
+
+# ================================================================================================================================
         
 @user = User.new
         @user.firstname = 'Valentina'
@@ -228,7 +289,28 @@ create_scheduletocourse(@user,"Test 1", kylie_timeslots)
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
         @user.save
-        
+       
+valentina_timeslots1 = [
+        {:mandatory => true, :start_time => "15:55", :end_time => "17:10", :weekday => "Tuesday", :reason => "CSCE-625-600"},
+        {:mandatory => true, :start_time => "15:55", :end_time => "17:10", :weekday => "Thursday", :reason => "CSCE-625-600"},
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Tuesday", :reason => "CSCE-636-600"},
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Thursday", :reason => "CSCE-636-600"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Monday", :reason => "CSCE-646-601"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Wednesday", :reason => "CSCE-646-601"},
+
+]
+create_scheduletocourse(@user,"Test 1", valentina_timeslots1) 
+
+valentina_timeslots2 = [
+        {:mandatory => true, :start_time => "12:45", :end_time => "14:00", :weekday => "Tuesday", :reason => "CSCE-624-600"},
+        {:mandatory => true, :start_time => "12:45", :end_time => "14:00", :weekday => "Thursday", :reason => "CSCE-624-600"},
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Tuesday", :reason => "CSCE-614-600"},
+        {:mandatory => true, :start_time => "9:35", :end_time => "10:50", :weekday => "Thursday", :reason => "CSCE-614-600"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Monday", :reason => "CSCE-646-601"},
+        {:mandatory => true, :start_time => "8:00", :end_time => "9:15", :weekday => "Wednesday", :reason => "CSCE-646-601"},
+
+]
+create_scheduletocourse(@user,"Test 2", valentina_timeslots2) 
 # valentina_classes = [
 #         {:abbreviated_subject => "NUEN", :course_number => 309, :section_number => 500, :term_id => @term.id},
 #         {:abbreviated_subject => "MATH", :course_number => 152, :section_number => 523, :term_id => @term.id},
