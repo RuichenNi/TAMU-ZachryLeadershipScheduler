@@ -107,10 +107,9 @@ class Scheduler_2
                         @time_slot.conflicts.push(@conflict_mod)
                         #end_time = Time.now
                         #puts "Time Elasped for conflict #{(end_time-start_time)*1000} milliseconds"
-
-                    end
-                    if @conflict.length > 0
-                        @true_conflict = true
+                        if @conflict.length > 0
+                            @true_conflict = true
+                        end
                     end
                     
                 end
