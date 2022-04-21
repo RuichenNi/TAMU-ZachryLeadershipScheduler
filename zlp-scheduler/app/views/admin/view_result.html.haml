@@ -14,7 +14,7 @@
           %th#specialTableHeader Option
         -@results.each do |result|
           %tr
-            %td#specialTableData #{@date_dict[result.day]} 
+            %td#specialTableData #{result.day} 
             %td#specialTableData #{result.time.strftime("%H:%M")} - #{result.time.advance(:hours => 2).strftime("%H:%M")}
             %td#specialTableData #{result.cost}
             %td#specialTableData
@@ -31,7 +31,7 @@
 
         -@conflicts.each do |conf|
           %tr
-            %td#specialTableData #{@date_dict[conf.day]} 
+            %td#specialTableData #{conf.day} 
             %td#specialTableData #{conf.time.strftime("%H:%M")} - #{conf.time.advance(:hours => 2).strftime("%H:%M")}
             %td#specialTableData #{conf.cost}
             %td#specialTableData

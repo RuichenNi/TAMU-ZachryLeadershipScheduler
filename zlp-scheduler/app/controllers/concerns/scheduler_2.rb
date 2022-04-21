@@ -1,21 +1,28 @@
 class Scheduler_2
-    @days = ["M","T","W","TR","F"]
+    @days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
     
     def self.is_conflict?(day,current_time,schedule)
-        schedule.courses.each do |course|
-            if course.meeting_days.present? and course.meeting_days.include? day
-                if course.meetingtime_start.in_time_zone(-5).strftime("%H%M") <= current_time.strftime("%H%M") and current_time.strftime("%H%M") <= course.meetingtime_end.in_time_zone(-5).strftime("%H%M")
-                    return course
-                elsif course.meetingtime_start.in_time_zone(-5).strftime("%H%M") <= current_time.advance(:hours => 2).strftime("%H%M") and current_time.advance(:hours => 2).strftime("%H%M") <= course.meetingtime_end.in_time_zone(-5).strftime("%H%M")
-                    return course
+        @conflictstime = []
+        schedule.schedule_to_courses.each do |timeslot|
+            if timeslot.start_time!=nil and timeslot.end_time!=nil and timeslot.weekday == day
+                if DateTime.strptime(timeslot.end_time, "%H:%M").strftime("%H%M") <= current_time.strftime("%H%M") 
+                    next
+                elsif DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") >= current_time.advance(:hours => 2).strftime("%H%M") 
+                    next
                 else
-                    return false
+                    print("\n#####################   ")
+                    print(timeslot.id)
+                    print("   #####################\n")
+                    @conflictstime.append(timeslot.id)
                 end
             else
-                return false
+                next
             end
-            
         end
+        print("\n$$$$$$$$$$$$$$$$$$$$$$$ ")
+        print(@conflictstime)
+        print(" $$$$$$$$$$$$$$$$$$$$$$$\n")
+        return @conflictstime
     end
     
     def self.exponential_cost_function(current_time, start_of_day, end_of_day)
@@ -68,35 +75,41 @@ class Scheduler_2
                 @time_slot = TimeSlot.new
                 @time_slot.time = current_time
                 @total_cost = 0
-                @conflict = false
+                @conflict = []
                 @true_conflict = false
                 
                 cohort.users.each do |student|
                     
                     student.schedules.each_with_index do |schedule, index|
                         @conflict = self.is_conflict?(day,current_time,schedule)
-                            if @conflict.is_a? false.class
-                                break
-                            elsif @conflict.kind_of?(Array) && @conflict.length == 0
-                                next
-                            else
-                                #print(@conflict)
-                                #start_time = Time.now
-                                @conflict_mod = Conflict.new
-                                @conflict_mod.user = student
-                                @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =>  @conflict.id, :schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
-                                @conflict_mod.course = @conflict
-                                @conflict_mod.schedule = schedule
-                                conflict_mods.append(@conflict_mod)
-                                #@conflict_mod.save
-                                @total_cost += @conflict_mod.cost
-                                @time_slot.conflicts.push(@conflict_mod)
-                                #end_time = Time.now
-                                #puts "Time Elasped for conflict #{(end_time-start_time)*1000} milliseconds"
-                            end
+                        print("*****************************\n")
+                        print(student.lastname)
+                        print("\n",index,"\n")
+                        print(@conflict)
+                        print("*****************************\n")
+                        if(@conflict.length == 0) 
+                            next
+                        end
+                        #print(@conflict)
+                        #start_time = Time.now
+                        @conflict_mod = Conflict.new
+                        @conflict_mod.user = student
+                        @conflict_mod.cost =2**(2*index) - 1
+                        @conflict.each do |timeslotid|
+                            @conflict_mod.cost = ScheduleToCourse.find_by(:id => timeslotid).mandatory ? @conflict_mod.cost + 4 : @conflict_mod.cost + 1 #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
+                        end
+                        @conflict_mod.cost = student.urgent ? @conflict_mod.cost + 1000 : @conflict_mod.cost
+                        @conflict_mod.reasonid = @conflict
+                        @conflict_mod.schedule = schedule
+                        conflict_mods.append(@conflict_mod)
+                        #@conflict_mod.save
+                        @total_cost += @conflict_mod.cost
+                        @time_slot.conflicts.push(@conflict_mod)
+                        #end_time = Time.now
+                        #puts "Time Elasped for conflict #{(end_time-start_time)*1000} milliseconds"
 
                     end
-                    if not @conflict.is_a? false.class or @true_conflict == true
+                    if @conflict.length > 0
                         @true_conflict = true
                     end
                     

@@ -4,6 +4,7 @@
         = f.hidden_field :id, {:value => @schedule.id}
         = f.label:name, "Schedule Name:", :id => 'whiteLabel'
         = f.text_field :name, {:readonly => true, :required => true, :value => @schedule.name, :oninvalid=> "this.setCustomValidity('Schedule must include a name.')"}
+        = f.submit "Save Schedule", :class => 'button_link'
         = render partial: 'schedule_table'
         %br
         = f.submit "Save Schedule", :class => 'button_link'

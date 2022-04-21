@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2022_04_09_233811) do
   create_table "conflicts", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "cost"
+    t.integer "reasonid", default: [], array: true
     t.integer "course_id"
     t.integer "schedule_id"
     t.integer "time_slot_id"

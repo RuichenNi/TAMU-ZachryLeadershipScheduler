@@ -3,6 +3,7 @@
     = form_for @schedule do |f|
         = f.label:name, "Schedule Name:", :id => 'whiteLabel'
         = f.text_field :name, {:required => true}
+        = f.submit "Save Schedule", :class => 'button_link'
         = render partial: 'schedule_table'
         %br
         = f.submit "Save Schedule", :class => 'button_link'
