@@ -94,9 +94,9 @@ class Scheduler_2
                         #start_time = Time.now
                         @conflict_mod = Conflict.new
                         @conflict_mod.user = student
-                        @conflict_mod.cost =2**(2*index) - 1
+                        cost_weight = 7 **(2-index)
                         @conflict.each do |timeslotid|
-                            @conflict_mod.cost = ScheduleToCourse.find_by(:id => timeslotid).mandatory ? @conflict_mod.cost + 4 : @conflict_mod.cost + 1 #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
+                            @conflict_mod.cost = ScheduleToCourse.find_by(:id => timeslotid).mandatory ? @conflict_mod.cost + cost_weight*2 : @conflict_mod.cost + cost_weight #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
                         end
                         @conflict_mod.cost = student.urgent ? @conflict_mod.cost + 1000 : @conflict_mod.cost
                         @conflict_mod.reasonid = @conflict
