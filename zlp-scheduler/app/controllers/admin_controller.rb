@@ -181,30 +181,41 @@ class AdminController < ApplicationController
     @date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
     @results = TimeSlot.where(:was_conflict => false, :cohort_id => @cohort.id).order(cost: :asc,id: :asc).limit(200)
     @conflicts = TimeSlot.where(:was_conflict => true, :cohort_id => @cohort.id).order(cost: :asc,id: :asc).limit(200)
+    @is_urgents = {}
+    @conflicts.each do |timeslot|
+      is_urgent = false
+      timeslot.conflicts.each do |conf|
+        if conf.user.urgent == true
+            is_urgent = true
+            break
+        end
+      end
+      @is_urgents.store(timeslot.id, is_urgent)
+    end
   end
   
   def view_conflicts
     @cohort = Cohort.find(params[:cohort_id])
     @final_result = []
+    @is_urgent = false
+    @selecttime=TimeSlot.find(params[:conflict_id])
     @conflict = TimeSlot.find(params[:conflict_id]).conflicts
     @mandatory_dict = {false => "False", true => "True"}
     @conflict.each do |conf|
       if conf.user_id.present?
           student = User.find(conf.user_id)
-          name = student.firstname + ' ' + student.lastname
           conf.reasonid.each do |timeslot_id|
-            course = ScheduleToCourse.find_by(id: timeslot_id).reason
+            course = "[" + conf.course_id.to_s + "] " + ScheduleToCourse.find_by(id: timeslot_id).reason
             #ScheduleToCourse.find_by(id: timeslot_id)
             time = ScheduleToCourse.find_by(id: timeslot_id).weekday + ": " + ScheduleToCourse.find_by(id: timeslot_id).start_time  + " - " + ScheduleToCourse.find_by(id: timeslot_id).end_time
             #time = course.meetingtime_start.strftime("%H:%M")  + " - " + course.meetingtime_end.strftime("%H:%M") 
             #subject = Subject.find(course.subject_id).subject_code
             #final_subject = subject + ' ' + course.course_number.to_s
             #section_number = course.section_number
-            
             schedule_to_course = ScheduleToCourse.find_by(schedule_id: conf.schedule_id)
             #mandatory_value = schedule_to_course.mandatory
             mandatory_value = ScheduleToCourse.find_by(id: timeslot_id).mandatory
-            result = [name, course, time, mandatory_value]
+            result = [student, course, time, mandatory_value]
             @final_result.append(result)
         end
       end

@@ -33,7 +33,7 @@
           %tr
             %td#specialTableData #{conf.day} 
             %td#specialTableData #{conf.time.strftime("%H:%M")} - #{conf.time.advance(:hours => 2).strftime("%H:%M")}
-            %td#specialTableData #{conf.cost}
+            %td#specialTableData #{conf.cost} #{@is_urgents[conf.id] ? "▲":" "}
             %td#specialTableData
               = button_to "Details", view_conflicts_path(@cohort.id, conf.id), method: :get, form_class: "detailbtn"
     %p{:style => "text-align:right"}

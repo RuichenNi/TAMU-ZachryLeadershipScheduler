@@ -3,7 +3,8 @@
   %head
     %title Conflicted Detail
   %body
-    %h1{:style => "text-align:center"} Conflicted Time Slot Details
+    %h1{:style => "text-align:center"} #{@selecttime.day} : #{@selecttime.time.strftime("%H:%M")} - #{@selecttime.time.advance(:hours => 2).strftime("%H:%M")}
+    //Conflicted Time Slot Details
     %div#tableWrapper
       %table#conflictTable
         %tr
@@ -13,7 +14,7 @@
           %th#specialTableHeader Mandatory
         -@final_result.each do |result|
           %tr
-            %td#specialTableData #{result[0]}
+            %td#specialTableData #{result[0].firstname} #{result[0].lastname}  #{result[0].urgent ? "▲":" "}
             %td#specialTableData #{result[1]}
             %td#specialTableData #{result[2]}
             %td#specialTableData #{@mandatory_dict[result[3]]}

@@ -10,18 +10,12 @@ class Scheduler_2
                 elsif DateTime.strptime(timeslot.start_time, "%H:%M").strftime("%H%M") >= current_time.advance(:hours => 2).strftime("%H%M") 
                     next
                 else
-                    print("\n#####################   ")
-                    print(timeslot.id)
-                    print("   #####################\n")
                     @conflictstime.append(timeslot.id)
                 end
             else
                 next
             end
         end
-        print("\n$$$$$$$$$$$$$$$$$$$$$$$ ")
-        print(@conflictstime)
-        print(" $$$$$$$$$$$$$$$$$$$$$$$\n")
         return @conflictstime
     end
     
@@ -82,11 +76,6 @@ class Scheduler_2
                     
                     student.schedules.each_with_index do |schedule, index|
                         @conflict = self.is_conflict?(day,current_time,schedule)
-                        print("*****************************\n")
-                        print(student.lastname)
-                        print("\n",index,"\n")
-                        print(@conflict)
-                        print("*****************************\n")
                         if(@conflict.length == 0) 
                             next
                         end
@@ -101,6 +90,7 @@ class Scheduler_2
                         end
                         @conflict_mod.reasonid = @conflict
                         @conflict_mod.schedule = schedule
+                        @conflict_mod.course_id = index + 1
                         conflict_mods.append(@conflict_mod)
                         #@conflict_mod.save
                         @total_cost += @conflict_mod.cost
