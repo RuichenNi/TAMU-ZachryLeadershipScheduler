@@ -77,7 +77,7 @@ class Scheduler_2
                     student.schedules.each_with_index do |schedule, index|
                         @conflict = self.is_conflict?(day,current_time,schedule)
                         if(@conflict.length == 0) 
-                            next
+                            break
                         end
                         #print(@conflict)
                         #start_time = Time.now
