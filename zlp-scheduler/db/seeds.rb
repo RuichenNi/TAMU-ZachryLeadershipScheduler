@@ -126,6 +126,7 @@ end
         @user.role = 'student'
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
+        @user.urgent=true
         @user.save
        
 kylie_timeslots1 = [
