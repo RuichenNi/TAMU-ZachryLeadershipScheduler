@@ -13,11 +13,11 @@ class AdminController < ApplicationController
   end
   
   def new_term
-    if flash[:selected_term_id]#没用
-      @term = Term.find(flash[:selected_term_id])#没用
-    else#没用
+    if flash[:selected_term_id]
+      @term = Term.find(flash[:selected_term_id])
+    else
       @term = Term.find_by active: 1;
-    end#没用
+    end
     @cohorts = Cohort.all.order(name: :asc)
     @cohort_names = []
     @cohorts.each do |s|
@@ -32,22 +32,22 @@ class AdminController < ApplicationController
       @term = Term.find(params[:term][:name])
       params[:Cohorts] = Cohort.all
       if not params[:Cohorts]
-        flash[:notice] = "Please select at least one cohort."#设了notice不显示
+        flash[:notice] = "Please select at least one cohort."
         redirect_to new_term_path, flash: {selected_term_id: @term.id} and return
       end
       
       Term.update_all active: false
       @term = Term.find(params[:term][:name])
-      if @term.update_attributes(:active => true)#激活一个term之后把数据库里所有的term都赋予这个term
+      if @term.update_attributes(:active => true)
         @cohorts = params[:Cohorts]
         @cohorts.each do |c|
-          add_cohort = c    #临时变量是c的引用
+          add_cohort = c    
           c.chosen_time = nil
           c.flag = 0
           #add_cohort = Cohort.where(:name => c)
           @term.cohorts.push(add_cohort) 
         end
-        @scheduletocourse = ScheduleToCourse.all #激活新的term以后要把前一个其他term学生填的课表全都删除
+        @scheduletocourse = ScheduleToCourse.all 
         @scheduletocourse.each do |s|
           s.destroy
         end
@@ -59,7 +59,7 @@ class AdminController < ApplicationController
         close_date = DateTime.new(2099,2,3,4,5,6,'+03:00')
         @term.update_attributes(:opendate => open_date)
         @term.update_attributes(:closedate => close_date)
-        LoadCoursesJob.perform_later @term   #LoadCoursesJob的定义在app/jobs里,应该是为term添加对应的subject和课程类
+        LoadCoursesJob.perform_later @term   
         flash[:notice] = 'Term activated!'
         redirect_to view_term_admin_path
       else

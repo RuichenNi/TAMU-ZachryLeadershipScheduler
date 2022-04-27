@@ -161,7 +161,6 @@ class StudentController < ApplicationController
         end
 
         if (params[startT_symb] !="" and params[endT_symb] !="") 
-        #这边要解决editschedule会重新添加原有scheduletocourse词条的bug，需要判别是否之前存在，三重判断
         #@schedule.courses.push(@course)
         #next if params[check_symb].nil?
         #@schedule_course = ScheduleToCourse.find_by()
