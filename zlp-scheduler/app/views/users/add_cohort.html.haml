@@ -12,5 +12,5 @@
         = file_field_tag :file
         %br 
         %br
-        = submit_tag "Import", :class=> "button_link"
+        = submit_tag "Import", :class=> "button_link", data: {confirm: "Students exist in other cohorts will not be imported into this cohort!"}
         = link_to "Cancel", manage_cohorts_path, :class => 'button_link'

@@ -12,7 +12,7 @@
         %br
         %br
         %br
-        = f.submit "Activate", :class => 'button_link'
+        = f.submit "Activate", :class => 'button_link', data: {confirm: "Are you sure? All students's schedule data will be lost!"}
         = link_to "Cancel", view_term_admin_path, :class => 'button_link'
         = link_to "Load more terms", load_terms_path, :class => 'button_link'
         /data: {confirm: 'This will erase previous student records. Are you sure?'},
