@@ -1,6 +1,6 @@
 class Subject < ApplicationRecord
   belongs_to :term, optional: true
-  has_many :courses
+  has_many :courses 
   
   def self.ImportSubjectsForTerm!(term)
     json = CourseScraper.get_subjects(term.term_code)
