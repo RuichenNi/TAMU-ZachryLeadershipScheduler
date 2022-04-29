@@ -18,7 +18,7 @@ require "uri"
   # meeting_location: Wehner - College of Business 113
   # term: nil
 class Course < ApplicationRecord
-  belongs_to :term
+  belongs_to :term, optional: true
   belongs_to :subject
   has_many :schedule_to_courses
   has_many :schedules, through: :schedule_to_courses

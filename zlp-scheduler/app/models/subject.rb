@@ -1,5 +1,5 @@
 class Subject < ApplicationRecord
-  belongs_to :term
+  belongs_to :term, optional: true
   has_many :courses
   
   def self.ImportSubjectsForTerm!(term)
