@@ -12,7 +12,7 @@ zlp-scheduler/
 ../Documentation
 ../zlp-scheduler
 ```
-The `Documentation` folder contains images, iteration reports, meeting minutes etc. If you were to pickup this project in Fall 2020, you would want to add a subdirectory to Documentation called `Fall2020`. This would be where you can upload releveant reports and documentations during your semester.
+The `Documentation` folder contains images, iteration reports, meeting minutes etc. If you were to pickup this project in Fall 2022, you would want to add a subdirectory to Documentation called `Fall2022`. This would be where you can upload releveant reports and documentations during your semester.
 
 The `zlp-scheduler` folder is where the Rails app lives. This folder was created with the standard Rails 5 `rails new zlp-scheduler`. Due to the project organization, the heroku deploy step is slightly different. See that section to deploy to Heroku.
 
