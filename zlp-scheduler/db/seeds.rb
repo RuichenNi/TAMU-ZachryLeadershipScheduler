@@ -112,6 +112,15 @@ end
         @user.role = 'admin'
         @user.password = "Temp"
         @user.save
+        
+@user = User.new
+        @user.firstname = 'Seth'
+        @user.lastname = 'Sullivan'
+        @user.uin = 202007722
+        @user.email = 'seth.sullivan@tamu.edu'
+        @user.role = 'admin'
+        @user.password = "Temp"
+        @user.save
 # ================================================================================================================================       
 @cohort = Cohort.new
         @cohort.name = "Test Cohort"
